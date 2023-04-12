@@ -7,11 +7,15 @@ const fs = require("fs");
 const upload = multer();
 const path = require("path");
 
+const PORT = 3001;
+app.set("port", PORT);
+
 app.use(cors());
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(upload.array("files", 50))
 app.use(express.json({limit: "200mb"}));
+//************************plu work**************************
 
-const uploadDir = path.join(__dirname, 'uploads');
 
 const pool = mysql.createPool({
     host: "plu-practice-hub.cygacds5e57w.eu-west-2.rds.amazonaws.com",
@@ -49,14 +53,16 @@ app.post("/pluInsert", uploadImages, async (req,res)=> {
         const base64Data = image.file.data;
         const binaryData = Buffer.from(base64Data, 'base64');
         
-        const imageFileName = `${Date.now()}_${image.name}`;
-        const imagePath = path.join(uploadDir, imageFileName);
-
+        const imageFileName = `${Date.now()}.jpg`;
+        // PAUSE const imagePath = path.join(uploadDir, imageFileName);
+        const imagePath = `uploads/${imageFileName}`;
+        const grabImagePath = `${req.protocol}://${req.hostname}:${req.app.get('port')}/uploads/${imageFileName}`;
         await fs.writeFile(imagePath, binaryData, (err) => {
             if (err) {
                 console.error(err);
                 // handle error
             } else {
+                
                 console.log(`File written successfully to ${imagePath}`);
                 // continue with your logic after file is written successfully
             }
@@ -67,7 +73,7 @@ app.post("/pluInsert", uploadImages, async (req,res)=> {
             image.department,
             image.name,
             image.plu,
-            imageFileName,
+            grabImagePath,
         ];
         return new Promise( (resolve, reject) => {
             pool.query(insertQuery, values, (error, results, fields)=> {
@@ -110,9 +116,13 @@ app.post("/pluListRetrieve", async (req, res) =>{
         }
     })
 })
-    
+//***************Login Work **************************/    
+
+
+
+
 //declares port and starts listening on that port.   
-const PORT = 3002;
+
 
 app.listen(PORT, ()=> {
     console.log("data post is running app running")

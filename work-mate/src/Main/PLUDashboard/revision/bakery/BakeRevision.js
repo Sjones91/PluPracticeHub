@@ -6,7 +6,7 @@ function BakeRevision(props, setActivityState) {
   const [bakeryPlus,setBakeryPlus] = useState([]);
   const grabPlus = async () => {
       try {
-        const response = await fetch("http://localhost:3002/pluListRetrieve", {
+        const response = await fetch("http://localhost:3001/pluListRetrieve", {
           method: 'POST',
           headers: {
           'Content-Type': 'application/json'
@@ -32,7 +32,7 @@ function BakeRevision(props, setActivityState) {
         bakeryPlus.map((item,index)=> {
           const Name = item.Name;
           const Plu = item.Plu
-          const imageUrl = `/uploads/${item.image}`;
+          const imageUrl = item.image;
           //Server\uploads
           console.log(imageUrl)
           

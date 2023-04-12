@@ -6,7 +6,7 @@ function ProdRevision(props, setActivityState) {
   const [producePlus,setProducePlus] = useState([]);
   const grabPlus = async () => {
       try {
-        const response = await fetch("http://localhost:3002/pluListRetrieve", {
+        const response = await fetch("http://localhost:3001/pluListRetrieve", {
           method: 'POST',
           headers: {
           'Content-Type': 'application/json'

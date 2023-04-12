@@ -86,7 +86,7 @@ function UpdateForm() {
         if(inputValidation) {
             try {
                 //post the completed images state to the back end
-                const response = await fetch("http://localhost:3002/pluInsert", 
+                const response = await fetch("http://localhost:3001/pluInsert", 
                     {method: "POST",
                     headers: {
                     "Content-Type": "application/json"
