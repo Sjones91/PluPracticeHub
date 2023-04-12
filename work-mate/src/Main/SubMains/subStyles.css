@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;700;800&display=swap');
+
+/* font-family: 'Rubik', sans-serif; */
+
+.loginContent{
+    font-family: 'Rubik', sans-serif;
+    color: rgb(12, 32, 51);
+    display: flex;
+    flex-direction: column;
+    min-width: 70%;
+    max-width: 70%;
+    margin: 40px auto;
+    background-color: white;
+    border-radius: 5px;
+    padding: 20px;
+}
+.loginContent h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+}
+.loginContent p {
+    padding-top: 10px;
+    opacity: 80%;
+}
+.inputField {
+    margin-top: 10px;
+    border-top: 2px solid rgb(12, 32, 51);
+    border-bottom: 2px solid rgb(12, 32, 51);
+    padding-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+}
+.inputField p{
+    padding-bottom: 5px;
+}
+.inputLogin {
+    width: 85px;
+    margin-top: 10px;
+    background-color: rgb(12, 32, 51);
+    color: white;
+    opacity: 80%;
+    border-radius: 5px;
+    border: none;
+    font-size: 1.25rem;
+
+}
+.inputLogin:hover {
+    cursor: pointer;
+    opacity: 100%;
+}
+.inputRegister {
+    background: none;
+    border: none;
+    text-align: left;
+    color: rgb(12, 32, 51);
+    margin-top: 5px;
+    opacity: 80%;
+    font-weight: 700;
+}
+.inputRegister:hover {
+    cursor: pointer;
+    opacity: 100%;
+}

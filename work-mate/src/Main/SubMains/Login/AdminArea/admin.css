@@ -1,0 +1,109 @@
+.d-f-row {
+    display: flex;
+    color: rgb(12, 32, 51);
+    padding: 5px 10px;
+}
+.d-f-col {
+    display: flex;
+    flex-direction: column;
+}
+.a-s-center {
+    margin: auto;
+}
+.adminNav {
+    width: 100%
+}
+.navButton {
+    margin-left: 10px;
+    font-weight: 800;
+    background-color: rgb(49, 144, 233);
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.underline {
+    background-color: rgb(12, 32, 51);
+    width:100%;
+    height: 3px;
+}
+.d-sp-between {
+    justify-content: space-between;
+}
+.logout {
+     font-weight: 700;
+     margin-top: auto;
+     margin-bottom: auto;
+}
+
+.logout:hover, .navButton:hover, .uploadButton:hover {
+    cursor: pointer;
+    opacity: 90%;
+}
+/***************UpdateForm***************/
+.updateArea {
+    margin: 20px auto;
+    text-align: center;
+    color: rgb(12, 32, 51);
+}
+.updateArea h1 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    
+}
+.updateArea p {
+    width: 50%;
+    margin: 10px auto;
+    line-height: 1.5rem;
+}
+.uploadedImages {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 100%;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+.eachUpload {
+    width: 40%;
+    margin: 10px auto;
+}
+.eachUpload img {
+    margin-bottom: 5px;
+    max-width: 100%;
+    
+}
+.eachUpload input {
+    width: 80%;
+    margin: 5px auto;
+    color: rgb(12, 32, 51);
+    border: none;
+    
+    border-radius: 5%;
+    text-align: center;
+}
+.eachUpload select {
+    width: 82%;
+    color: rgb(12, 32, 51);
+    border: none;
+    border-radius: 5px;
+    margin: 5px auto;
+}
+.uploadButton {
+    background-color: rgb(49, 144, 233);
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    color: rgb(12, 32, 51);
+    font-weight: 700;
+}
+
+@media screen and (min-width: 600px) {
+    .eachUpload {
+        width: 15%;
+    }
+}
+.serverResponse{
+    color: rgb(1, 116, 1);
+    margin: 10px auto;
+    max-width: 80%;
+}

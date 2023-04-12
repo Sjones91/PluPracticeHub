@@ -1,0 +1,60 @@
+ //collects the raw data from the front end and converts it to an array of objects.
+    const rawData = req.body;
+    const pluData = rawData.imageGroup;
+    console.log(pluData.file)
+    //creates 2 arrays to store skipped items and inserted items.
+    let insertedItems = [];
+    let skippedItems = [];
+    //insert query to try and insert the items into the database if there is no restrictions on unique
+    let insertQuery = "INSERT IGNORE INTO PLU_Practice_Hub.PLU_LIST (Department, Name, Plu, image) VALUES (?, ?, ?, ?)";
+    //map the pluData and create a new promise for each query.
+    let promises = pluData.map((data)=> {
+        const itemValue = [data.department, data.name, data.plu, data.file.buffer]
+        console.log(data)
+        return new Promise((resolve,reject) => {
+            connection.query(insertQuery, itemValue, (error, results, fields)=> {
+                if(error){
+                    console.log(error)
+                    reject(error)
+                } else {
+                    //this just logs the item being queried to array depending on if it was inserted.
+                    if(results.affectedRows > 0) {
+                        
+                        insertedItems.push(data)
+                    } else {
+                        
+                        skippedItems.push(data)
+                    }
+                }
+                resolve(results)
+            });
+        });   
+    })
+
+        return new Promise((resolve,reject) => {
+            connection.query(insertQuery,itemValue, (error, results, fields)=> {
+                if(error){
+                    console.log(error)
+                    reject(error)
+                } else {
+                    //this just logs the item being queried to array depending on if it was inserted.
+                    if(results.affectedRows > 0) {
+
+                        insertedItems.push(data)
+                    } else {
+                        skippedItems.push(data)
+                    }
+                }
+                resolve(results)
+            });
+        });   
+     
+        try {
+        //trys to carry out all promises created afterwhich logs to the console what is inserted and what isnt.
+        const result = await Promise.all(promises);
+        console.log("was inserted:", insertedItems);
+        console.log("not inserted:", skippedItems)
+        //this will then send back skipped items to the client
+        } catch(error) {
+        console.log(error);
+        }   
