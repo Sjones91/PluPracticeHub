@@ -62,3 +62,10 @@
     cursor: pointer;
     opacity: 100%;
 }
+@media screen and (min-width: 500px) {
+    .loginContent {
+        max-width: 352px;
+        min-width: 352px;
+    }
+    
+}

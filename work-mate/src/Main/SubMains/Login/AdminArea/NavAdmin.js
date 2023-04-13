@@ -8,8 +8,8 @@ function NavAdmin(props,setAdminDashboardState) {
   const [,setUser] = useContext(UserContext);
 
   return (
-    <div className='d-f-col adminNav'>
-      <section className='d-f-row d-sp-between'>
+    <div className='adminNav'>
+      <section className='navButtons'>
         <div className='buttonBar d-f-row'>
           <h1 className='navButton' onClick={()=>{props.setAdminDashboardState(0)}}>Dashboard</h1>
           <h1 className='navButton' onClick={()=>{props.setAdminDashboardState(1)}}>Upload PLU's</h1>

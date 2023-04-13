@@ -57,6 +57,7 @@ app.post("/pluInsert", uploadImages, async (req,res)=> {
         // PAUSE const imagePath = path.join(uploadDir, imageFileName);
         const imagePath = `uploads/${imageFileName}`;
         const grabImagePath = `${req.protocol}://${req.hostname}:${req.app.get('port')}/uploads/${imageFileName}`;
+        console.log(grabImagePath)
         await fs.writeFile(imagePath, binaryData, (err) => {
             if (err) {
                 console.error(err);

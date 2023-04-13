@@ -11,14 +11,21 @@
     margin: auto;
 }
 .adminNav {
-    width: 100%
+    display: flex;
+    width: 100%;
+    flex-direction:column;
 }
 .navButton {
+    font-size: 0.70rem;
+    text-align: center;
     margin-left: 10px;
     font-weight: 800;
     background-color: rgb(49, 144, 233);
     padding: 5px;
     border-radius: 5px;
+}
+.buttonBar {
+    justify-content: center;
 }
 
 .underline {
@@ -30,9 +37,10 @@
     justify-content: space-between;
 }
 .logout {
-     font-weight: 700;
-     margin-top: auto;
-     margin-bottom: auto;
+    justify-content: center;
+
+    font-weight: 700;
+    margin: 0 auto;
 }
 
 .logout:hover, .navButton:hover, .uploadButton:hover {
@@ -96,14 +104,50 @@
     color: rgb(12, 32, 51);
     font-weight: 700;
 }
+.fileUpload {
+    margin: 10px auto;
+    text-align: center;
+}
+@media screen and (min-width: 340px) {
+    .navButton {
+        font-size: 1rem;
+    }
+}
+@media screen and (min-width: 500px) {
+    .navButtons{
+        display: flex;
+        flex-direction: column;
+        
+    }
+    .logout{
+        margin: auto;
+    }
+    .buttonBar {
+        margin: auto;
+    }
+
+    
+}
 
 @media screen and (min-width: 600px) {
-    .eachUpload {
-        width: 15%;
+    .navButtons {
+        flex-direction: row;
     }
+    .buttonBar {
+        margin-left: 0;
+    }
+    .logout {
+        margin-right: 0;
+        padding-right: 20px;
+    }
+    .eachUpload {
+        width: 15%; 
+    }
+    
 }
 .serverResponse{
     color: rgb(1, 116, 1);
     margin: 10px auto;
     max-width: 80%;
 }
+

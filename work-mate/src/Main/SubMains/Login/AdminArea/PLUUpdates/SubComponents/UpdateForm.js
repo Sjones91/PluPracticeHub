@@ -111,7 +111,7 @@ function UpdateForm() {
     <div>
 
         <form onSubmit={handleSubmit}>
-            <input type="file" className="a-s-center"onChange={handleImageChange} multiple/>
+            <input type="file" className="fileUpload"onChange={handleImageChange} multiple/>
             {serverMessage ? <h2 className='serverResponse'>{serverMessage}</h2>: null}
             <div className='uploadedImages'>
                 {images.map((image, index)=> (

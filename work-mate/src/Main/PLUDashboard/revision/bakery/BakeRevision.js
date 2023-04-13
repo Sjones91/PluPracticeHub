@@ -27,7 +27,7 @@ function BakeRevision(props, setActivityState) {
   return (
     <div className='d-f-col'>
       <TiArrowLeftThick onClick={()=> props.setActivityState(0)} className="backIcon"/>
-      <div className='d-f-row pluList'>
+      <div className={bakeryPlus ? 'd-f-row pluList' : "d-f-r"}>
       {bakeryPlus.length > 0 ? 
         bakeryPlus.map((item,index)=> {
           const Name = item.Name;
@@ -42,7 +42,7 @@ function BakeRevision(props, setActivityState) {
           ) 
             
         })
-      : <h1>Loading... </h1>
+      : <h1 className="loading">Loading... </h1>
       }
       </div>
     </div>

@@ -4,13 +4,14 @@
 
 .pluDash {
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
     align-content: center;
     justify-content: space-evenly;
     margin-top: 30px;
 }
 .actChoice {
-    width: calc(40% - 10px);
+    width: 80%;
     background-color: white;  
     margin-bottom: 20px;
     color: rgb(12, 32, 51);
@@ -18,6 +19,9 @@
     font-family: 'Rubik', sans-serif;
     border-radius: 5px;
     text-align: center;
+    display:flex;
+    flex-direction: column;
+
 }
 .actChoice:hover {
     cursor: pointer;
@@ -25,13 +29,17 @@
 }
 .actImage {
     max-width: calc(100% - 10px);
-    height: auto;
+    min-width: calc(100% - 10px);
+    min-height: 75%;
+    max-height: 75%;
+    
     margin: 0;
     padding: 5px;
 }
 .actChoice h1 {
     font-weight: 800;
     font-size: 1.2rem;
+    margin-top: auto;
 }
 .actChoice h2 {
     font-weight: 400;
@@ -53,6 +61,22 @@
     margin: 0 auto;
     flex-wrap: wrap;
     
+}
+.loading {
+    text-align: center;
+    font-size: 2rem;
+    animation: flash 2s infinite;
+}
+@keyframes flash {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.4;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 .pluItem {
     display:flex;
@@ -108,6 +132,14 @@
         grid-gap: 5px;
         width: 100%
     } 
+    .pluDash {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .actChoice {
+        width: calc(40% - 10px);
+    }
 }
 @media screen and (min-width: 790px) {
     .pluList {
@@ -115,6 +147,7 @@
         grid-gap: 5px;
         width: 100%
     }
+    
     
         
 }

@@ -15,6 +15,7 @@ function ProdRevision(props, setActivityState) {
         })
         const serverResponse = await response.json();
         setProducePlus(serverResponse);
+        console.log(serverResponse)
       }catch(error) {
         console.log(error)
       }
@@ -31,17 +32,15 @@ function ProdRevision(props, setActivityState) {
         producePlus.map((item,index)=> {
           const Name = item.Name;
           const Plu = item.Plu
-          const imageUint8Array = new Uint8Array(item.image.data);
-          const imageBlob = new Blob([imageUint8Array], {type: "image/jpeg"})
-          const imgUrl = URL.createObjectURL(imageBlob)
+          const imageUrl = item.image;
           
           return(
-              <PluItems Name = {Name} Plu = {Plu} img ={imgUrl}/>
+              <PluItems Name = {Name} Plu = {Plu} img ={imageUrl}/>
               
           ) 
             
         })
-      : <h1>Loading...</h1>
+      : <h1 className='loading'>Loading...</h1>
       }
       </div>
     </div>
