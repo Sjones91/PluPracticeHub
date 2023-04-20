@@ -116,17 +116,14 @@
 @media screen and (min-width: 500px) {
     .navButtons{
         display: flex;
-        flex-direction: column;
-        
+        flex-direction: column;     
     }
     .logout{
         margin: auto;
     }
     .buttonBar {
         margin: auto;
-    }
-
-    
+    }   
 }
 
 @media screen and (min-width: 600px) {
@@ -142,12 +139,118 @@
     }
     .eachUpload {
         width: 15%; 
-    }
-    
+    } 
 }
 .serverResponse{
     color: rgb(1, 116, 1);
     margin: 10px auto;
     max-width: 80%;
 }
+/*****************************Dashboard Styles**************************/
+.dashbaord {
+    color: rgb(12, 32, 51)
+};
+.dashboard h1{
+    font-size: 2rem;
+    text-align: center;
+}
+/******************************Update PLUS AREA *******************************/
 
+.updateSection {
+    text-align: center;
+    border: rgb(49, 144, 233) solid 2px;
+    border-radius: 10px;
+    margin: 20px auto;
+    width: 90%
+}
+.adminTitle{
+    font-size: 3rem;
+    font-weight: 600;
+    color: rgb(12, 32, 51);
+    margin-top: 20px;
+    text-align: center;
+}
+.updateSection h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: rgb(12, 32, 51);
+    margin: 10px;
+}
+.updateSection p {
+    color: rgb(12, 32, 51);
+    font-size: 1rem;
+    margin: 10px;
+    line-height: 1.25rem;
+}
+.caution {
+    font-weight: 600;
+    font-style: italic;
+}
+.updateSectionButton {
+    margin-bottom: 10px;
+    background-color: brown;
+    min-width: 180px;
+    padding: 10px;
+}
+.erase {
+    background-color: brown;
+}
+.popUp {
+    min-width: 90%;
+    min-height: 400px;
+    background-color: grey;
+    border: solid 3px rgb(49, 144, 233) ;
+    border-radius: 10px;
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    margin:  5%;
+}
+.popUp h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-top: 0px;
+}
+.popUp h2 {
+    margin-top: 15px;
+}
+.popUpButtons :last-child {
+    margin-left: 20px;
+}
+.popUpButtons button {
+    margin-top: 20px;
+    padding: 5px
+}
+.updateItem {
+    max-width: 100%;
+}
+.updateItem h1 {
+    font-size: 1.5rem;
+    
+}
+.updateItem button {
+    padding: 5px;
+    height: min-content;
+    margin: auto 5px;
+    background-color: rgb(49, 144, 233);
+    border-radius: 5px;
+    border: none;
+}
+.updateButtons {
+    margin-left: auto;
+}
+.updateTextBoxes :first-child{
+    width: 30px;
+    margin-right: 10px;
+}
+.updateTextBoxes :nth-child(2) {
+    width: 150px
+}
+.tickSymbol {
+    color: green;
+    font-size: 2rem;
+}
+.tickSymbol :hover {
+    cursor: pointer;
+    opacity: 90%;
+}

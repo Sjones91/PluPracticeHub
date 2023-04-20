@@ -8,7 +8,7 @@ import AdminDashboard from "./Dashboard/AdminDashboard.js"
 import UpdateTool from './PLUUpdates/UpdateTool.js'
 function AdminHome() {
   //use state to manage the main content of the admin area. *KEY* 0=Dashboard 1 =UpdatePLU's 2=Reporting
-  const [adminDashboardState,setAdminDashboardState] = useState(1);
+  const [adminDashboardState,setAdminDashboardState] = useState(0);
   
   return (
     <div className='d-f-col '>
