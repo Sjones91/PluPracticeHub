@@ -223,7 +223,15 @@
 }
 .updateItem {
     max-width: 100%;
+    border-bottom: solid rgb(49, 144, 233) 1px;
 }
+.updateItem:last-child{
+    border-bottom: none;
+}
+.pluListItems {
+    border-top: solid rgb(49, 144, 233) 1px;
+}
+
 .updateItem h1 {
     font-size: 1.5rem;
     
@@ -253,4 +261,11 @@
 .tickSymbol :hover {
     cursor: pointer;
     opacity: 90%;
+}
+.responsePlu {
+    color:initial;
+    color: rgb(1, 116, 1);
+    text-align: left;
+    margin: 0 0 0 10px;
+
 }

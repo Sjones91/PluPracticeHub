@@ -35,7 +35,7 @@ const uploadImages = multer(
         storage: storage, 
         limits: { fileSize: 10 * 1024 * 1024 } // 10 MB
     }).array("images");
-
+/**************Admin Plu updating, uploading and deleting*/
 app.post("/pluInsert", uploadImages, async (req,res)=> {
     //PAYLOAD
     //             file: {
@@ -155,7 +155,33 @@ app.post("/pluInsert", uploadImages, async (req,res)=> {
         console.log(error);
     } 
 });
-
+app.post("/updatePluItem", async (req,res)=>{
+    const {id,name,plu} = req.body;
+    console.log(id,name,plu)
+    ///////need to add checks to see if the plu or name already exists ******TO DO!*******
+    try {
+        await sql.connect(config);
+        const response = await sql.query(`UPDATE [Plu-Items] SET Name = '${name}', Plu = '${plu}' WHERE id = '${id}'`)
+        const results = response.rowsAffected;
+        console.log(results)
+    } catch(error) {
+        console.log(error)
+    }
+})
+app.post("/deletePlu", async (req,res)=>{
+    const {id,name,plu} = req.body;
+    console.log(id,name,plu)
+    ///////need to add checks to see if the plu or name already exists ******TO DO!*******
+    try {
+        await sql.connect(config);
+        const response = await sql.query(`DELETE FROM [Plu-Items] WHERE id = '${id}'`)
+        const results = response.rowsAffected;
+        console.log(results)
+    } catch(error) {
+        console.log(error)
+    }
+})
+/*************Retrieve queries for user experience ****/
 app.post("/pluListRetrieve", async (req, res) =>{
     const depChoice = await req.body.department;
 

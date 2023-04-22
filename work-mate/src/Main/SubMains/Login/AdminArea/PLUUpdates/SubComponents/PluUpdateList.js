@@ -23,11 +23,12 @@ function PluUpdateList() {
       grabAllPlus()
     },[]);
   return (
-    <div>
+    <div className="pluListItems">
         {pluList.map((item)=> {
             const plu = item.Plu;
             const Name = item.Name;
-            return <UpdateItemUnit Name = {Name} Plu = {plu}/>
+            const id = item.id;
+            return <UpdateItemUnit Name = {Name} Plu = {plu} id={id}/>
         })}
     </div>
   )
