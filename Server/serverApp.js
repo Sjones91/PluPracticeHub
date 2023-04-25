@@ -51,7 +51,7 @@ app.post("/pluInsert", uploadImages, async (req,res)=> {
     const images = req.files;
     const imageData = req.body.imageGroup;
     //console.log(imageData)
-    let insertQuery = "INSERT INTO [Plu-Items] ([Department], [Name], [Plu], [image]) VALUES (@department,@name,@plu,@image)";
+    let insertQuery = "INSERT INTO [Plu-Items] ([Department], [Name], [Plu], [image], [imageSource]) VALUES (@department,@name,@plu,@image, @imageSource)";
     let skippedItems = 0;
     const promises =  imageData.map(async (image)=> {
         const base64Data = image.file.data;
@@ -77,6 +77,7 @@ app.post("/pluInsert", uploadImages, async (req,res)=> {
             image.name,
             image.plu,
             grabImagePath,
+            imagePath
         ];
         return new Promise( async (resolve, reject) => {
             sql.connect(config)
@@ -88,6 +89,7 @@ app.post("/pluInsert", uploadImages, async (req,res)=> {
                 request.input('Name', sql.VarChar, image.name);
                 request.input('Plu', sql.VarChar, image.plu);
                 request.input('image', sql.VarChar, grabImagePath);
+                request.input('imageSource',sql.VarChar, imagePath);
                 const transaction = new sql.Transaction();
                 transaction.begin()
                     .then(()=> {
@@ -161,25 +163,72 @@ app.post("/updatePluItem", async (req,res)=>{
     ///////need to add checks to see if the plu or name already exists ******TO DO!*******
     try {
         await sql.connect(config);
-        const response = await sql.query(`UPDATE [Plu-Items] SET Name = '${name}', Plu = '${plu}' WHERE id = '${id}'`)
-        const results = response.rowsAffected;
-        console.log(results)
+        const results = await sql.query(`SELECT COUNT(*) AS count FROM [Plu-Items] WHERE Plu = '${plu}';`)
+        const {count} = results.recordset[0];
+        console.log("counts for plu and name", count)
+        if(count > 0) {
+            res.status(409).send({message: "Not updated. Plu already used."});
+        } else {
+            try {
+                const response = await sql.query(`UPDATE [Plu-Items] SET Name = '${name}', Plu = '${plu}' WHERE id = '${id}'`)
+                const results = response.rowsAffected;
+                console.log(results)
+                res.status(200).send({message: "Item Successfully Updated."})
+            } catch(error) {
+                console.log(error)
+            }
+        }
     } catch(error) {
         console.log(error)
     }
+    
 })
 app.post("/deletePlu", async (req,res)=>{
-    const {id,name,plu} = req.body;
-    console.log(id,name,plu)
+    const {id,name,plu,image} = req.body;
+    console.log(id,name,plu, image)
     ///////need to add checks to see if the plu or name already exists ******TO DO!*******
     try {
         await sql.connect(config);
         const response = await sql.query(`DELETE FROM [Plu-Items] WHERE id = '${id}'`)
         const results = response.rowsAffected;
         console.log(results)
+
+        await fs.unlink(image, (error)=> {
+            if(error){
+                console.log(error);
+                console.log("not deleted from folder")
+            } else {
+                console.log("file successfully deleted from", image)
+            }
+
+        }) 
+        res.status(200).send({message: "Deleted Successfully"})
     } catch(error) {
         console.log(error)
     }
+})
+app.post("/deleteALL", async (req,res)=> {
+    try{
+        await sql.connect(config);
+        const response = await sql.query("TRUNCATE TABLE [Plu-Items];");
+        const results = response.rowsAffected;
+        console.log(results)
+    } catch(error) {
+        console.log(error);
+    }
+
+    const folderPath = "./uploads"
+    await fs.readdir(folderPath, (error, files)=> {
+        if(error) throw error;
+
+        for(const file of files) {
+            fs.unlink(`${folderPath}/${file}`, error => {
+                if(error) throw error;
+            })
+        }
+
+    })
+    res.status(200).send({message: "all items deleted from server"})
 })
 /*************Retrieve queries for user experience ****/
 app.post("/pluListRetrieve", async (req, res) =>{

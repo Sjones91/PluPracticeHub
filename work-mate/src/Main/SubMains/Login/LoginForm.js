@@ -20,7 +20,7 @@ function LoginForm(props, setContentChoice) {
   const submitHandler = async (event)=> {
     event.preventDefault();
     
-    if (storeNumber.length>0 && name.length>0) {
+    if (storeNumber.length>0) {
       
       try {
         await fetch("http://localhost:3001/login",{
@@ -30,7 +30,6 @@ function LoginForm(props, setContentChoice) {
             },
             body:JSON.stringify({
               storeNo: storeNumber,
-              name: name
             })
           })
           props.setContentChoice(0);
@@ -50,10 +49,6 @@ function LoginForm(props, setContentChoice) {
         <section>
           <p>Store Number</p>
           <input type="text" placeholder="Store Number" onChange={updateStoreNumber}></input>
-        </section>
-        <section>
-          <p>Name</p>
-          <input type="input" placeholder="Your Name" onChange={updateName}></input>
         </section>
         <button type='submit' className='inputLogin' onClick={submitHandler}>Enter</button>
       </form>

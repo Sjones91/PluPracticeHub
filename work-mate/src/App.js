@@ -9,8 +9,8 @@ import UserContext from "./Main/SubMains/UserContext.js";
 
 function App() {
 
-  const [ActiveContent,SetActiveContent] = useState(false);
-  const [user, setUser] = useState(true);
+  const [ActiveContent,SetActiveContent] = useState(true);
+  const [user, setUser] = useState(false);
   return (
     <UserContext.Provider value={[user, setUser]}>
       <div className="appWide">

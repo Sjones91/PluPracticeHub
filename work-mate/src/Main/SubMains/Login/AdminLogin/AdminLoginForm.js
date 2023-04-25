@@ -81,6 +81,7 @@ function AdminLoginForm(props, setFormChoice) {
         </section>
         <button type='submit' className='inputLogin' onClick={submitHandler}>Login</button>
       </form>
+      <button type="button" className='inputRegister' onClick={()=>props.setAdminLoggedIn(2)}>Register Here</button>
     </div>
   )
 }

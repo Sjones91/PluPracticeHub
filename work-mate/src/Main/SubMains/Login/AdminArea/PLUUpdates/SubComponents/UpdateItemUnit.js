@@ -1,43 +1,47 @@
 import React, {useState,useEffect} from 'react'
 import { AiFillCheckCircle } from "react-icons/ai";
-function UpdateItemUnit(props, Name,Plu, id) {
+function UpdateItemUnit(props, Name,Plu, id, setUpdateList,updateList,pluList, image) {
     const [UpdateField, setUpdateField] = useState(0)
     const [updatedPlu,setUpdatedPlu] = useState("");
     const [updateName,setUpdateName] = useState("");
     const [pluId, setPluId] = useState("");
-    const [response, setResponse] = useState(false)
+    const [messageResponse, setMessageResponse] = useState("");
+    
     useEffect(()=> {
         //set the states of the current name and plu onload
         setUpdateName(props.Name)
         setUpdatedPlu(props.Plu)
         setPluId(props.id)
-    },[response])
+    },[props.pluList])
 
     const updatePluHandler = async ()=> {
-        setUpdateField(false)
-        setResponse(!response);
-        try {
-            const response = await fetch("http://localhost:3001/updatePluItem", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-            id: pluId,
-            name: updateName,
-            plu: updatedPlu
+        if(updateName !== "" && !isNaN(updatedPlu) && updatedPlu !== ""){
+            try {
+                const response = await fetch("http://localhost:3001/updatePluItem", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                id: pluId,
+                name: updateName,
+                plu: updatedPlu
+                })
             })
-        })
-        const data = await response.json();
-        console.log(data)
-
-
-    } catch(error) {
-        console.log(error)
+            const {message} = await response.json();
+            console.log(props.updateList)
+            setMessageResponse(message)
+            console.log(message)
+            props.setUpdateList(!props.updateList)
+            setUpdateField(false);  
+        } catch(error) {
+            console.log(error)
+        }
+    } else {
+        alert("Please ensure fields are not blank.")
     }
-    }
+}
 const deletePluHandler = async ()=> {
-    setResponse(!response);
     try {
         const response = await fetch("http://localhost:3001/deletePlu", {
         method: "POST",
@@ -47,17 +51,18 @@ const deletePluHandler = async ()=> {
         body: JSON.stringify({
         id: pluId,
         name: updateName,
-        plu: updatedPlu
+        plu: updatedPlu,
+        image: props.image
         })
     })
-    const data = await response.json();
-    console.log(data)
+    
 } catch(error) {
     console.log(error)
 }
+    props.setUpdateList(!props.updateList)
 }
   return (
-    <div className='d-f-row updateItem'>
+    <div className='updateItem'>
         <div className='d-f-row'>
             {UpdateField? 
                 <div className='d-f-row updateTextBoxes'>
@@ -67,11 +72,11 @@ const deletePluHandler = async ()=> {
                 </div>
                 :
                 <div className='d-f-col'>
-                    <section className='d-f-row'>
+                    <section className='d-f-row updateTextData'>
                         <h1>{updatedPlu}</h1>
                         <h1>{updateName}</h1>
                     </section>
-                    {response? <h3 className='responsePlu'>Item successfully updated.</h3>: null}
+                    {messageResponse !== ""? <h3 className='responsePlu'>{messageResponse}</h3>: null}
                 </div>
             }
         </div>
