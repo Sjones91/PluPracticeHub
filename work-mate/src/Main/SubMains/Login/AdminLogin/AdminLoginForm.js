@@ -1,14 +1,13 @@
 import React from 'react'
 import "../../subStyles.css"
 import { useState, useEffect,useContext } from 'react'
-import UserContext from '../../UserContext.js';
+import { UserContext } from '../../../../App';
 
-function AdminLoginForm(props, setFormChoice) {
+function AdminLoginForm(props, setFormChoice,setAdminLoginState, setAdmin) {
   //use states to handle email and password input. 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [validEmail, SetValidEmail] = useState(false);
-  const [,setUser] = useContext(UserContext);
   useEffect(() => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     SetValidEmail(emailRegex.test(email))
@@ -42,7 +41,7 @@ function AdminLoginForm(props, setFormChoice) {
           const data = await response.json();
           console.log(data)
           if(data) {
-            setUser(true);
+            props.setAdmin(true);
           } else {
             alert("Email or Password do not match.")
           }
@@ -81,7 +80,7 @@ function AdminLoginForm(props, setFormChoice) {
         </section>
         <button type='submit' className='inputLogin' onClick={submitHandler}>Login</button>
       </form>
-      <button type="button" className='inputRegister' onClick={()=>props.setAdminLoggedIn(2)}>Register Here</button>
+      <button type="button" className='inputRegister' onClick={()=>props.setAdminLoginState(false)}>Register Here</button>
     </div>
   )
 }

@@ -6,13 +6,13 @@ import UploadTool from "./PLUUpdates/UpdateTool.js"
 import UpdatePlus from './PLUUpdates/UpdatePlus'
 import AdminDashboard from "./Dashboard/AdminDashboard.js"
 import UpdateTool from './PLUUpdates/UpdateTool.js'
-function AdminHome() {
+function AdminHome(props,setAdmin) {
   //use state to manage the main content of the admin area. *KEY* 0=Dashboard 1 =UpdatePLU's 2=Reporting
   const [adminDashboardState,setAdminDashboardState] = useState(0);
   
   return (
     <div className='d-f-col '>
-        <NavAdmin setAdminDashboardState={setAdminDashboardState}/>
+        <NavAdmin setAdminDashboardState={setAdminDashboardState} setAdmin = {props.setAdmin} />
         {(()=>{
           switch(adminDashboardState) {
             case 0:

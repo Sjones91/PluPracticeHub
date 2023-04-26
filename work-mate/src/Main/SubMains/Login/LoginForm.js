@@ -3,7 +3,7 @@ import "../subStyles.css"
 import { useState } from 'react'
 
 
-function LoginForm(props, setContentChoice) {
+function LoginForm(props, setUser) {
   //use states to handle email and password input. 
   const [storeNumber, setStoreNumber] = useState("");
   const [name, setName] = useState("");
@@ -23,7 +23,7 @@ function LoginForm(props, setContentChoice) {
     if (storeNumber.length>0) {
       
       try {
-        await fetch("http://localhost:3001/login",{
+        const response = await fetch("http://localhost:3001/login",{
             method: "POST",
             headers: {
               "Content-Type": "application/json"
@@ -32,7 +32,9 @@ function LoginForm(props, setContentChoice) {
               storeNo: storeNumber,
             })
           })
-          props.setContentChoice(0);
+          props.setUser(true)
+          const data = await response.json();
+          console.log(data.message)
       } catch(error) {
           console.log(error)
         }

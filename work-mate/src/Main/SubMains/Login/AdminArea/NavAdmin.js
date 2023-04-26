@@ -1,12 +1,8 @@
 import React, {useContext} from 'react'
 import { GiExitDoor } from "react-icons/gi";
 import "./admin.css"
-import UserContext from "../../UserContext.js"
 
-function NavAdmin(props,setAdminDashboardState) {
-
-  const [,setUser] = useContext(UserContext);
-
+function NavAdmin(props,setAdminDashboardState,setAdmin) {
   return (
     <div className='adminNav'>
       <section className='navButtons'>
@@ -17,7 +13,7 @@ function NavAdmin(props,setAdminDashboardState) {
           <h1 className='navButton' onClick={()=>{props.setAdminDashboardState(3)}}>Reporting</h1>
           
         </div>
-        <div className='d-f-row logout' onClick={()=>setUser(false)}>
+        <div className='d-f-row logout' onClick={()=>props.setAdmin(false)}>
           <GiExitDoor/>
           <p>Logout</p>
         </div>

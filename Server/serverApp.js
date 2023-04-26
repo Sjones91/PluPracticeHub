@@ -297,23 +297,21 @@ app.post("/pluListRetrieveAll", async (req, res) =>{
 app.post("/login", async (req, res) => {
     try {
         //query the db for an admin login
-        const {storeNo, name} = req.body;
-        console.log("we receieved something")
-        const insertQuery = "INSERT INTO PLU_Practice_Hub.Activity (storeNumber, name) VALUES (?,?)";
-        const insertValues = [storeNo,name];
-        pool.query(insertQuery,insertValues, (error, results) => {
-            if(error) {
-                console.log(error);
-                res.status(500).send("Server Error");   
-            } else {
-                console.log(results);
-                res.status(200).send("Data inserted successfully")
-            }
-            
-        })
+        const {storeNo} = req.body;
+        console.log(storeNo)
+        const date = new Date().toISOString().slice(0, 10);
+        const insertQuery = "INSERT INTO [User-Visits] (store_number, date) VALUES (@store_number,@date)";
+        console.log(date)
+        const connection =  await sql.connect(config);
+        const request = new sql.Request()
+        request.input('store_number', sql.VarChar, storeNo);
+        request.input('date', sql.Date, date);
+        await request.query(insertQuery);
+
+        res.status(200).send({message: "Store number logged to database successfully."})
     } catch(error) {
         console.log(error);
-        res.status(500).send("didnt work bro")
+        res.status(500).send("Error inserting store number into the database.")
     };
 });
 
@@ -340,6 +338,26 @@ app.post("/adminlogin", async (req, res) => {
         console.log(error);
         res.status(500).send("Error connecting to backend.")
     };
+});
+app.post("/register", async (req, res) => {
+    const {Authkey,username,password} = req.body;
+    console.log(Authkey,username,password)
+    //Query if the auth key is valid and allow to create a new user, if authkey is invalid, user does not have auth
+    const connection = await sql.connect(config);
+    const result = await sql.query(`SELECT COUNT(*) AS count FROM [Administrators] WHERE [AuthKey] = ${Authkey}`);
+    const count = result.rowsAffected
+    console.log(count)
+    //todo - hash the password before soring it into the database.
+    if(count> 0) {
+        try{
+            const response= await sql.query(`INSERT INTO [Administrators] (username,password) VALUES ('${username}','${password}')`);
+            console.log(response.rowsAffected)
+        } catch(error){
+            console.log(error)
+        }
+    } else {
+        res.status(409).send({message: "Authorisation key invalid. Please enter a valid Authorisation Key."})
+    }
 });
 
 

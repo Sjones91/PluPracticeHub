@@ -4,9 +4,11 @@ import ProdRevision from "./revision//produce/ProdRevision.js"
 import ProdTest from "./tests/Prodtest.js";
 import BakeRevision from "./revision/bakery/BakeRevision.js"
 import BakeTest from "./tests/Baketest.js"
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import { UserContext } from '../../App.js';
 function PluHome() {
   const [activityState,setActivityState] = useState(0);
+  const [user,setUser] = useContext(UserContext);
   return (
     <div>
        {(()=> {
@@ -26,7 +28,7 @@ function PluHome() {
 
       }
     })()}
-
+  
     </div>
   )
 }

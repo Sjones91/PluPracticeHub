@@ -1,23 +1,29 @@
 import React, { useState } from 'react'
 import AdminLoginForm from "./AdminLoginForm.js"
 import {useContext} from 'react';
-import UserContext from '../../UserContext.js';
 import AdminHome from "../AdminArea/AdminHome.js"
-import Register from "../AdminLogin/Register.js"
+import Register from "../AdminLogin/Register.js";
+
 function AdminLogin() {
-  const [adminLoggedIn,setAdminLoggedIn] = useState(2)
+  const [admin,setAdmin] = useState(true)
+  const [adminLogInState,setAdminLoginState] = useState(1)
+  
+  console.log(admin)
   return (
     <div>
       {(()=> {
-        switch(adminLoggedIn) {
-          case 0:
-            return <AdminHome/>
-          case 1:
-            return <AdminLoginForm setAdminLoggedIn={setAdminLoggedIn}/>
-          case 2:
-            return <Register setAdminLoggedIn={setAdminLoggedIn}/>
-          default:
-            return <AdminLoginForm/>
+        switch(admin) {
+          case true:
+            return <AdminHome setAdmin = {setAdmin} />
+          case false:
+              switch(adminLogInState){
+                case true:
+                  return <AdminLoginForm setAdminLoginState={setAdminLoginState} setAdmin = {setAdmin} />
+                case false:
+                  return <Register setAdminLoginState={setAdminLoginState}/>
+                default:
+                  return <AdminLoginForm setAdminLoginState={setAdminLoginState} setAdmin = {setAdmin} />
+              }
         }
       })()}
     </div>
