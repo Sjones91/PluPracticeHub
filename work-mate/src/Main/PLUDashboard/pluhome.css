@@ -90,19 +90,19 @@
     font-family: 'Rubik', sans-serif;
     border: solid 2px rgb(17, 44, 70);
 }
-.pluItem img {
+.pluItem img, .pluItemPass img,.pluItemFail img {
     border: solid 2px rgb(17, 44, 70);
     max-height: 180px;
     margin-bottom: 0;
     border-radius: 10px;
 }
-.pluItem h1 {
+.pluItem h1, .pluItemPass h1,.pluItemFail h1 {
     margin: 0 auto;
     padding: 0;
     font-size: 1.5rem;
     font-weight: 600;
 }
-.pluItem h2 {
+.pluItem h2, .pluItemPass h2,.pluItemFail h2 {
     font-size: 1.25 ;
     font-weight: 400;
 }
@@ -118,14 +118,74 @@
     margin: 0 auto;
 }
 .backIcon{
+    width:min-content;
     font-size: 3rem;
-    margin: 10px auto 0 10px;
+    margin: 10px 0 0 10px;
     color: rgb(49, 144, 233);
 }
 .backIcon:hover {
     cursor: pointer;
     opacity: 90%;
 }
+.pluItem input {
+    margin: 5px auto;
+    border-radius: 5px;
+    border: none;
+    width: 25%;
+    color: rgb(12, 32, 51);
+    padding: 5px;
+    text-align: center;
+}
+.testItemName {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+.testButton {
+    background-color: rgb(19, 52, 83);
+    color: white;
+    border: none;
+    padding: 8px;
+    width: fit-content;
+    margin: 5px auto;
+    border-radius: 5px;
+    font-weight: 600;
+}
+.testButton:hover {
+    cursor: pointer;
+    opacity: 90%;
+}
+.pluItemPass {
+        display:flex;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+        margin: 10px;
+        border-radius: 10px;
+        padding: 8px;
+        background-color: rgb(95, 247, 164);
+        font-family: 'Rubik', sans-serif;
+        border: solid 2px rgb(17, 44, 70);
+}
+.pluItemFail {
+    
+    display:flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    margin: 10px;
+    border-radius: 10px;
+    padding: 8px;
+    background-color: brown;
+    font-family: 'Rubik', sans-serif;
+    border: solid 2px rgb(17, 44, 70);
+}
+.testHeader {
+    color: rgb(17, 44, 70);
+    margin: auto;
+    font-size: 3rem;
+    font-weight: 600;
+}
+
 @media screen and (min-width: 600px) {
     .pluList {
         grid-template-columns: 1fr 1fr 1fr;

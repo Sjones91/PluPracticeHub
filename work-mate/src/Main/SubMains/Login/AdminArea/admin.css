@@ -154,6 +154,30 @@
     font-size: 2rem;
     text-align: center;
 }
+.dashboardTitle {
+    font-size: 3rem;
+    text-align: center;
+    margin-top: 20px;
+    font-weight: 600;
+}
+.timerLogo {
+    font-size: 3rem;
+    margin: 60px auto 0;
+    color: rgb(12, 32, 51);
+    text-align: center;
+
+}
+.comingSoon {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-top: 20px;
+    font-weight: 600;
+}
+.comingSoonP {
+    text-align: center;
+    color: rgb(12, 32, 51);
+    margin-top: 10px;
+}
 /******************************Update PLUS AREA *******************************/
 
 .updateSection {
@@ -284,6 +308,7 @@
 .updateTextData {
     margin: 0 auto 0 0
 }
+
 @media screen and (min-width: 600px) {
     .updateItem {
         flex-direction: row;

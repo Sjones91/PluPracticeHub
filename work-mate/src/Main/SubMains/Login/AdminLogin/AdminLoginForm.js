@@ -4,17 +4,18 @@ import { useState, useEffect,useContext } from 'react'
 import { UserContext } from '../../../../App';
 
 function AdminLoginForm(props, setFormChoice,setAdminLoginState, setAdmin) {
-  //use states to handle email and password input. 
-  const [email, setEmail] = useState("");
+  //use states to handle Username and password input. 
+  const [Username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [validEmail, SetValidEmail] = useState(false);
+  const [validUsername, SetValidUsername] = useState(false);
   useEffect(() => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    SetValidEmail(emailRegex.test(email))
-  }, [email])
+    if(Username !== "") {
+      SetValidUsername(true);
+    }
+  }, [Username])
   //functions attached to both respective input fields to update states.
-  const updateEmail = (e) => {
-    setEmail(e.target.value);
+  const updateUsername = (e) => {
+    setUsername(e.target.value);
   };
   const updatePassword = (event) => {
     setPassword(event.target.value);
@@ -23,7 +24,7 @@ function AdminLoginForm(props, setFormChoice,setAdminLoginState, setAdmin) {
 //submit button handler which prevents default refresh and posts the data to the serverside app.
   const submitHandler = async (event)=> {
     event.preventDefault();
-    if (validEmail) {
+    if (validUsername) {
       if(password.length > 8) {
         //try statement to set up method and post the data to the backend app.
           try {
@@ -33,17 +34,18 @@ function AdminLoginForm(props, setFormChoice,setAdminLoginState, setAdmin) {
               "Content-Type": "application/json"
             },
             body: JSON.stringify({
-              email: email,
+              username: Username,
               password: password
             })
           });
           //awaiting response from the server.
           const data = await response.json();
-          console.log(data)
-          if(data) {
-            props.setAdmin(true);
+          if(response.status === 200) {
+            console.log(data.message)
+            props.setAdmin(true)
+            
           } else {
-            alert("Email or Password do not match.")
+            alert("Username or Password do not match.")
           }
           } catch (error) {
           console.log(error);
@@ -58,7 +60,7 @@ function AdminLoginForm(props, setFormChoice,setAdminLoginState, setAdmin) {
       alert("Please create a password which is greater than 8 characters.")
     }
   } else {
-    alert("Please enter a valid email address.")
+    alert("Please enter a valid Username address.")
   }
  
   }
@@ -67,12 +69,12 @@ function AdminLoginForm(props, setFormChoice,setAdminLoginState, setAdmin) {
     <div className='loginContent'>
       <div>
         <h1>Admin Login</h1>
-        <p>Please enter your email address and password.</p>
+        <p>Please enter your Username address and password.</p>
       </div>
       <form className='inputField'>
         <section>
-          <p>Email</p>
-          <input type="email" placeholder="Email" onChange={updateEmail}></input>
+          <p>Username</p>
+          <input type="Username" placeholder="Username" onChange={updateUsername}></input>
         </section>
         <section>
           <p>Password</p>

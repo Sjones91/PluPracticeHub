@@ -5,8 +5,9 @@ function Register(props,setAdminLoginState) {
   const [password,setPassword] = useState("")
   const [AuthKey,setAuthKey] = useState("");
   const [serverResponse,setServerResponse] = useState("")
+  
     const submitHandler = async (e)=> {
-      
+      setServerResponse("");
       
       if (username!== "" && password !== "" && AuthKey !== "") {
         
@@ -24,11 +25,13 @@ function Register(props,setAdminLoginState) {
               })
             })
             const data = await response.json();
-            console.log(data.message, data.status)
+            setServerResponse(data.message)
             
         } catch(error) {
             console.log(error)
           }
+      } else {
+        alert("Please enter a Username, Password and Authorisation Key")
       }
     }
   return (
@@ -40,6 +43,7 @@ function Register(props,setAdminLoginState) {
     </div>
     
     <div className='inputField'>
+      {serverResponse ===""? null : <p className='serverResponse'>{serverResponse}</p>}
       <section>
         <p>Username</p>
         <input type="text" value = {username} onChange={(e)=> {setUsername(e.target.value)}}></input>

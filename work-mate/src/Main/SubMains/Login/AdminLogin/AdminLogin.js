@@ -5,7 +5,7 @@ import AdminHome from "../AdminArea/AdminHome.js"
 import Register from "../AdminLogin/Register.js";
 
 function AdminLogin() {
-  const [admin,setAdmin] = useState(true)
+  const [admin,setAdmin] = useState(false)
   const [adminLogInState,setAdminLoginState] = useState(1)
   
   console.log(admin)

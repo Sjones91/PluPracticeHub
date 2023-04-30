@@ -11,7 +11,6 @@ function App() {
   const [ActiveContent,SetActiveContent] = useState(true);
   const [user, setUser] = useState(false);
   const [adminValid,setAdminValid] = useState(true);
-  console.log(adminValid)
   return (
     <UserContext.Provider value={[user, setUser, adminValid, setAdminValid]}>
       <div className="appWide">

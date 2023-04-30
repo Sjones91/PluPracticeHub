@@ -6,7 +6,7 @@ const multer = require("multer");
 const fs = require("fs");
 const upload = multer();
 const path = require("path");
-
+const bcrypt = require('bcryptjs');
 const PORT = 3001;
 app.set("port", PORT);
 
@@ -316,42 +316,51 @@ app.post("/login", async (req, res) => {
 });
 
 app.post("/adminlogin", async (req, res) => {
-    try {
-        const {email,password} = req.body;
-        //query the DB for a admin login (PLU_Practice_Hub.admins)
-        const queryString = "SELECT * from PLU_Practice_Hub.admins WHERE email = ? AND password = ?";
-        const queryValues = [email,password];
+    const {username,password} = req.body;
+    const connection = await sql.connect(config);
+    const response = await sql.query(`SELECT * FROM [Administrators] WHERE [Username] = '${username}'`)
+    console.log(password)
+if(response.rowsAffected > 0) {
+    const adminPasswordHash = response.recordset[0].Password;
+    console.log(adminPasswordHash)
 
-        pool.query(queryString,queryValues, (error, results) => {
-            if(error) {
-                console.log(error);
-                res.status(500).send("Server Error");   
-            } else {
-                if(results.length > 0) {
-                    res.status(200).send(true);
+            bcrypt.compare(password,adminPasswordHash, (err,results)=> {
+                if(err) {
+                    console.log(error)
+                    res.status(500).send({message:"Error validating password."})
+                } else if(results){
+                    console.log(results);
+                    res.status(200).send({message:"Passwords match. User logged in."})
+        
                 } else {
-                    res.status(401).send(false)
+                    console.log(results)
+                    res.status(409).send({message:"The password you entered is incorrect. Please try again."})
                 }
-            }  
-        }) 
-    } catch(error) {
-        console.log(error);
-        res.status(500).send("Error connecting to backend.")
-    };
+            })
+    } else {
+        res.status(404).send({message:"User Not found."})
+        sql.close()
+    }
+    
 });
 app.post("/register", async (req, res) => {
     const {Authkey,username,password} = req.body;
     console.log(Authkey,username,password)
+    const saltRounds = 10; // number of rounds to generate the salt
+    const salt = await bcrypt.genSalt(saltRounds);
+    const hashedPassword = await bcrypt.hash(password, salt);
+    console.log(hashedPassword)
     //Query if the auth key is valid and allow to create a new user, if authkey is invalid, user does not have auth
     const connection = await sql.connect(config);
-    const result = await sql.query(`SELECT COUNT(*) AS count FROM [Administrators] WHERE [AuthKey] = ${Authkey}`);
+    const result = await sql.query(`SELECT * FROM [Administrators] WHERE [AuthKey] = '${Authkey}'`);
     const count = result.rowsAffected
-    console.log(count)
+    console.log(result)
     //todo - hash the password before soring it into the database.
-    if(count> 0) {
+    if(Authkey === result.recordset[0].Authkey) {
         try{
-            const response= await sql.query(`INSERT INTO [Administrators] (username,password) VALUES ('${username}','${password}')`);
+            const response= await sql.query(`INSERT INTO [Administrators] (username,password) VALUES ('${username}','${hashedPassword}')`);
             console.log(response.rowsAffected)
+            res.status(200).send({message: "Administrator successfully registered."})
         } catch(error){
             console.log(error)
         }
