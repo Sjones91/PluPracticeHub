@@ -7,7 +7,7 @@ import React, { useState,createContext} from "react";
 
 export const UserContext =createContext();
 function App() {
-
+  //global use states.
   const [ActiveContent,SetActiveContent] = useState(true);
   const [user, setUser] = useState(false);
   const [adminValid,setAdminValid] = useState(true);
