@@ -1,12 +1,14 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useContext} from 'react'
 import PluItems from '../PluItems'
 import "../../pluhome.css";
 import { TiArrowLeftThick } from "react-icons/ti";
+import { UserContext } from '../../../../App';
 function ProdRevision(props, setActivityState) {
   const [producePlus,setProducePlus] = useState([]);
+  const ip =useContext(UserContext);
   const grabPlus = async () => {
       try {
-        const response = await fetch("http://localhost:3001/pluListRetrieve", {
+        const response = await fetch(`http://${ip[4]}:3001/pluListRetrieve`, {
           method: 'POST',
           headers: {
           'Content-Type': 'application/json'

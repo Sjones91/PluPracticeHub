@@ -8,6 +8,7 @@ function AdminLoginForm(props, setFormChoice,setAdminLoginState, setAdmin) {
   const [Username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [validUsername, SetValidUsername] = useState(false);
+  const ip =useContext(UserContext);
   useEffect(() => {
     if(Username !== "") {
       SetValidUsername(true);
@@ -28,7 +29,7 @@ function AdminLoginForm(props, setFormChoice,setAdminLoginState, setAdmin) {
       if(password.length > 8) {
         //try statement to set up method and post the data to the backend app.
           try {
-          const response = await fetch("http://localhost:3001/adminLogin", {
+          const response = await fetch(`http://${ip[4]}:3001/adminLogin`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json"

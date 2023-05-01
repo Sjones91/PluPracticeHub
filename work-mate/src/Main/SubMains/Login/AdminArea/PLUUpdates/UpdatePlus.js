@@ -1,15 +1,17 @@
-import React, {useState,useEffect} from 'react'
+import React, {useState,useEffect,useContext} from 'react'
 import PopUp from './SubComponents/PopUp';
 import PluUpdateList from './SubComponents/PluUpdateList';
+import { UserContext } from '../../../../../App';
 function UpdatePlus() {
   const [popUp, setPopUp] = useState(false)
   const [validation, setValidation] = useState(false)
   const [updateList,setUpdateList] = useState(false); //passed to updateItemUnit to be flipped when a change has been made, used to trigger rerender in use
+  const ip =useContext(UserContext);
   const clearDatabaseHandler = async () => {
     if(validation) {
       // DELETEALL ITEMS FROM DATABASE
       try {
-      const response = await fetch("http://localhost:3001/deleteAll", {
+      const response = await fetch(`http://${ip[4]}:3001/deleteAll`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -40,7 +42,6 @@ function UpdatePlus() {
       <section className='updateSection'>
         <h1>Clear Plu List</h1>
         <p>If you wish to clear the Plu list then click the button below.</p>
-        <p>DO NOT PRESS THE BUTTON GREGG!!!!</p>
         <p className='caution'>Caution: This will erase all data in the database and remove all images.</p>
         <button  type="button" className='inputLogin updateSectionButton' onClick={()=> {setPopUp(true); setValidation(true)}} >Erase Database</button>
       </section>

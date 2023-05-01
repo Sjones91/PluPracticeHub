@@ -1,12 +1,13 @@
-import React, {useState,useEffect} from 'react'
+import React, {useState,useEffect,useContext} from 'react'
 import { AiFillCheckCircle } from "react-icons/ai";
+import { UserContext } from '../../../../../../App';
 function UpdateItemUnit(props, Name,Plu, id, setUpdateList,updateList,pluList, image) {
     const [UpdateField, setUpdateField] = useState(0)
     const [updatedPlu,setUpdatedPlu] = useState("");
     const [updateName,setUpdateName] = useState("");
     const [pluId, setPluId] = useState("");
     const [messageResponse, setMessageResponse] = useState("");
-    
+    const ip =useContext(UserContext);
     useEffect(()=> {
         //set the states of the current name and plu onload
         setUpdateName(props.Name)
@@ -17,7 +18,7 @@ function UpdateItemUnit(props, Name,Plu, id, setUpdateList,updateList,pluList, i
     const updatePluHandler = async ()=> {
         if(updateName !== "" && !isNaN(updatedPlu) && updatedPlu !== ""){
             try {
-                const response = await fetch("http://localhost:3001/updatePluItem", {
+                const response = await fetch(`http://${ip[4]}:3001/updatePluItem`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

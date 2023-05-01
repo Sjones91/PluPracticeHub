@@ -11,8 +11,9 @@ function App() {
   const [ActiveContent,SetActiveContent] = useState(true);
   const [user, setUser] = useState(false);
   const [adminValid,setAdminValid] = useState(true);
+  const [ip,setIp] =useState("209.141.50.150");
   return (
-    <UserContext.Provider value={[user, setUser, adminValid, setAdminValid]}>
+    <UserContext.Provider value={[user, setUser, adminValid, setAdminValid, ip]}>
       <div className="appWide">
         <Header/>
         <NavBar ActiveContent={ActiveContent} SetActiveContent={SetActiveContent}/>

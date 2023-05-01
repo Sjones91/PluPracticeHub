@@ -37,6 +37,7 @@ const uploadImages = multer(
     }).array("images");
 /**************Admin Plu updating, uploading and deleting*/
 app.post("/pluInsert", uploadImages, async (req,res)=> {
+    console.log("Plu insert route taken")
     //PAYLOAD
     //             file: {
     //                 name: image.name,
@@ -50,6 +51,8 @@ app.post("/pluInsert", uploadImages, async (req,res)=> {
     //}
     const images = req.files;
     const imageData = req.body.imageGroup;
+    console.log(images)
+    console.log(imageData)
     //console.log(imageData)
     let insertQuery = "INSERT INTO [Plu-Items] ([Department], [Name], [Plu], [image], [imageSource]) VALUES (@department,@name,@plu,@image, @imageSource)";
     let skippedItems = 0;
@@ -60,7 +63,6 @@ app.post("/pluInsert", uploadImages, async (req,res)=> {
         // PAUSE const imagePath = path.join(uploadDir, imageFileName);
         const imagePath = `uploads/${imageFileName}`;
         const grabImagePath = `${req.protocol}://${req.hostname}:${req.app.get('port')}/uploads/${imageFileName}`;
-        console.log(grabImagePath)
         //write the file to the disk
         await fs.writeFile(imagePath, binaryData, (err) => {
             if (err) {
@@ -372,8 +374,8 @@ app.post("/register", async (req, res) => {
 
 
 //declares port and starts listening on that port.   
-
-
-app.listen(PORT, ()=> {
+const ip = "192.168.1.81";
+const ipLive ="209.141.50.150"
+app.listen(PORT, ipLive, ()=> {
     console.log("data post is running app running", PORT)
 });

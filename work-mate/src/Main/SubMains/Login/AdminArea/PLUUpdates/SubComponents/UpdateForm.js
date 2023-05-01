@@ -1,8 +1,10 @@
-import React, {useState} from 'react'
+import React, {useState,useContext} from 'react'
 import "../../admin.css"
+import { UserContext } from '../../../../../../App';
 function UpdateForm() {
     const [images, setImages] = useState([]);
     const [serverMessage, setServerMessage] = useState();
+    const ip =useContext(UserContext);
     //handles the name change in the form
     const handleImageChange = (event) => {
         const uploadedImages = Array.from(event.target.files);
@@ -85,8 +87,9 @@ function UpdateForm() {
 
         if(inputValidation) {
             try {
+                console.log(images)
                 //post the completed images state to the back end
-                const response = await fetch("http://localhost:3001/pluInsert", 
+                const response = await fetch(`http://${ip[4]}:3001/pluInsert`, 
                     {method: "POST",
                     headers: {
                     "Content-Type": "application/json"

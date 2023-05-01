@@ -1,18 +1,18 @@
-import React, {useState} from 'react'
-
+import React, {useState,useContext} from 'react'
+import { UserContext } from '../../../../App';
 function Register(props,setAdminLoginState) {
   const [username,setUsername] = useState("");
   const [password,setPassword] = useState("")
   const [AuthKey,setAuthKey] = useState("");
   const [serverResponse,setServerResponse] = useState("")
-  
+  const ip =useContext(UserContext);
     const submitHandler = async (e)=> {
       setServerResponse("");
       
       if (username!== "" && password !== "" && AuthKey !== "") {
         
         try {
-          const response = await fetch("http://localhost:3001/register",{
+          const response = await fetch(`http://${ip[4]}/register`,{
               method: "POST",
               headers: {
                 "Content-Type": "application/json"

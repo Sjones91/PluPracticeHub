@@ -1,12 +1,14 @@
 import React from 'react'
 import "../subStyles.css"
-import { useState } from 'react'
+import { useState,useContext } from 'react'
+import { UserContext } from '../../../App';
 
 
 function LoginForm(props, setUser) {
   //use states to handle email and password input. 
   const [storeNumber, setStoreNumber] = useState("");
   const [name, setName] = useState("");
+  const ip =useContext(UserContext);
   
   //functions attached to both respective input fields to update states.
   const updateStoreNumber = (e) => {
@@ -15,7 +17,6 @@ function LoginForm(props, setUser) {
   const updateName = (event) => {
     setName(event.target.value);
   };
-  
 //submit button handler which prevents default refresh and posts the data to the serverside app.
   const submitHandler = async (event)=> {
     event.preventDefault();
@@ -23,7 +24,7 @@ function LoginForm(props, setUser) {
     if (storeNumber.length>0) {
       
       try {
-        const response = await fetch("http://localhost:3001/login",{
+        const response = await fetch(`http://${ip[4]}:3001/login`,{
             method: "POST",
             headers: {
               "Content-Type": "application/json"
