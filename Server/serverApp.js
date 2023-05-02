@@ -11,8 +11,8 @@ const https = require('https');
 const PORT = 3001;
 
 const options = {
-    key: fs.readFileSync('/path/to/private.key'),
-    cert: fs.readFileSync('/path/to/certificate.crt')
+    key: fs.readFileSync('./certs/20230731_1a9c670e.pem'),
+    cert: fs.readFileSync('./certs/20230731_1a9c670e.pem')
 };
 
 app.set("port", PORT);
@@ -381,8 +381,8 @@ app.post("/register", async (req, res) => {
 
 
 // //declares port and starts listening on that port.   
-// const ip = "192.168.1.81";
-// const ipLive ="209.141.50.150"
+const ip = "192.168.1.81";
+const ipLive ="209.141.50.150"
 // app.listen(PORT, ipLive, ()=> {
 //     console.log("data post is running app running", PORT)
 // });
