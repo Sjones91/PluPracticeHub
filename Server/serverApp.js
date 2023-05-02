@@ -11,8 +11,8 @@ const https = require('https');
 const PORT = 3001;
 
 const options = {
-    key: fs.readFileSync('./certs/20230731_1a9c670e.pem'),
-    cert: fs.readFileSync('./certs/20230731_1a9c670e.pem')
+    key: fs.readFileSync('C:/Users/Administrator/Documents/Website/certs/20230731_587ac0db.pem'),
+    cert: fs.readFileSync('C:/Users/Administrator/Documents/Website/certs/20230731_587ac0db.pem')
 };
 
 app.set("port", PORT);
