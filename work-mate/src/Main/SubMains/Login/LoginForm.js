@@ -20,11 +20,11 @@ function LoginForm(props, setUser) {
 //submit button handler which prevents default refresh and posts the data to the serverside app.
   const submitHandler = async (event)=> {
     event.preventDefault();
-    
+    console.log(ip[5])
     if (storeNumber.length>0) {
       
       try {
-        const response = await fetch(`https://${ip[4]}:3001/login`,{
+        const response = await fetch(`${ip[5]}${ip[4]}:3001/login`,{
             method: "POST",
             headers: {
               "Content-Type": "application/json"
@@ -46,7 +46,7 @@ function LoginForm(props, setUser) {
     <div className='loginContent'>
       <div>
         <h1>Welcome</h1>
-        <p>Please Enter your Store Number and name.</p>
+        <p>Please Enter your Store Number.</p>
       </div>
       <form className='inputField'>
         <section>
@@ -55,6 +55,7 @@ function LoginForm(props, setUser) {
         </section>
         <button type='submit' className='inputLogin' onClick={submitHandler}>Enter</button>
       </form>
+      <p>Tip: Click on your browser settings and select "Add to homepage" or "Create shortcut" to access the site easier from your device.</p>
     </div>
   )
 }

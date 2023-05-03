@@ -11,7 +11,7 @@ function UpdatePlus() {
     if(validation) {
       // DELETEALL ITEMS FROM DATABASE
       try {
-      const response = await fetch(`https://${ip[4]}:3001/deleteAll`, {
+      const response = await fetch(`${ip[5]}${ip[4]}:3001/deleteAll`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

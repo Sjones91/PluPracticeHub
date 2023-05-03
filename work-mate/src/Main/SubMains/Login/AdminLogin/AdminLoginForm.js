@@ -29,7 +29,7 @@ function AdminLoginForm(props, setFormChoice,setAdminLoginState, setAdmin) {
       if(password.length > 8) {
         //try statement to set up method and post the data to the backend app.
           try {
-          const response = await fetch(`https://${ip[4]}:3001/adminLogin`, {
+          const response = await fetch(`${ip[5]}${ip[4]}:3001/adminLogin`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json"

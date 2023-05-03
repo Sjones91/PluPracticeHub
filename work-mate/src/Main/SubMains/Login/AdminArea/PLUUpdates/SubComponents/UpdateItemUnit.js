@@ -18,7 +18,7 @@ function UpdateItemUnit(props, Name,Plu, id, setUpdateList,updateList,pluList, i
     const updatePluHandler = async ()=> {
         if(updateName !== "" && !isNaN(updatedPlu) && updatedPlu !== ""){
             try {
-                const response = await fetch(`https://${ip[4]}:3001/updatePluItem`, {
+                const response = await fetch(`${ip[5]}${ip[4]}:3001/updatePluItem`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -44,7 +44,7 @@ function UpdateItemUnit(props, Name,Plu, id, setUpdateList,updateList,pluList, i
 }
 const deletePluHandler = async ()=> {
     try {
-        const response = await fetch(`http://${ip[4]}:3001/deletePlu`, {
+        const response = await fetch(`${ip[5]}${ip[4]}:3001/deletePlu`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"

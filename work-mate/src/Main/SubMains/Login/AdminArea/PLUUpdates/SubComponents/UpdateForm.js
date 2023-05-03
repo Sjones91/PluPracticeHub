@@ -89,7 +89,7 @@ function UpdateForm() {
             try {
                 console.log(images)
                 //post the completed images state to the back end
-                const response = await fetch(`https://${ip[4]}:3001/pluInsert`, 
+                const response = await fetch(`${ip[5]}${ip[4]}:3001/pluInsert`, 
                     {method: "POST",
                     headers: {
                     "Content-Type": "application/json"

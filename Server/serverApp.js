@@ -7,13 +7,7 @@ const fs = require("fs");
 const upload = multer();
 const path = require("path");
 const bcrypt = require('bcryptjs');
-const https = require('https');
 const PORT = 3001;
-
-const options = {
-    key: fs.readFileSync('C:/Users/Administrator/Documents/Websites/certs/privkey.pem'),
-    cert: fs.readFileSync('C:/Users/Administrator/Documents/Websites/certs/certificate.pem')
-};
 
 app.set("port", PORT);
 
@@ -380,13 +374,10 @@ app.post("/register", async (req, res) => {
 
 
 
-// //declares port and starts listening on that port.   
+// declares port and starts listening on that port.   
 const ip = "192.168.1.81";
 const ipLive ="209.141.50.150"
-// app.listen(PORT, ipLive, ()=> {
-//     console.log("data post is running app running", PORT)
-// });
-
-https.createServer(options, app).listen(PORT, ipLive, ()=> {
+app.listen(PORT, ipLive, ()=> {
     console.log("data post is running app running", PORT)
 });
+

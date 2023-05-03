@@ -12,8 +12,9 @@ function App() {
   const [user, setUser] = useState(false);
   const [adminValid,setAdminValid] = useState(true);
   const [ip,setIp] =useState("209.141.50.150");
+  const [protocol, setProtocol] = useState("http://")
   return (
-    <UserContext.Provider value={[user, setUser, adminValid, setAdminValid, ip]}>
+    <UserContext.Provider value={[user, setUser, adminValid, setAdminValid, ip, protocol]}>
       <div className="appWide">
         <Header/>
         <NavBar ActiveContent={ActiveContent} SetActiveContent={SetActiveContent}/>

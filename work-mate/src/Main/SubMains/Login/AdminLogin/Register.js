@@ -12,7 +12,7 @@ function Register(props,setAdminLoginState) {
       if (username!== "" && password !== "" && AuthKey !== "") {
         
         try {
-          const response = await fetch(`https://${ip[4]}/register`,{
+          const response = await fetch(`${ip[5]}${ip[4]}/register`,{
               method: "POST",
               headers: {
                 "Content-Type": "application/json"
