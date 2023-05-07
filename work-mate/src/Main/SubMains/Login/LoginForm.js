@@ -24,7 +24,7 @@ function LoginForm(props, setUser) {
     if (storeNumber.length>0 && storeNumber.length< 4 && storeNumber*0 == 0) {
       
       try {
-        const response = await fetch(`${ip[5]}${ip[4]}:3002/login`,{
+        const response = await fetch(`${ip[5]}${ip[4]}:3333/login`,{
             method: "POST",
             headers: {
               "Content-Type": "application/json"

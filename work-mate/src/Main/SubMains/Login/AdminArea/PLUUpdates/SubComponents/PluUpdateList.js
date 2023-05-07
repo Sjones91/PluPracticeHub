@@ -8,7 +8,7 @@ function PluUpdateList(props,setUpdateList,updateList) {
     // const [updateList,setUpdateList] = useState(false); //passed to updateItemUnit to be flipped when a change has been made, used to trigger rerender in use
     const grabAllPlus = async () => {
         try {
-          const response = await fetch(`${ip[5]}${ip[4]}:3001/pluListRetrieveAll`, {
+          const response = await fetch(`${ip[5]}${ip[4]}:3333/pluListRetrieveAll`, {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json'
