@@ -27,7 +27,8 @@ const config = {
     port: 1433,
     encrypt: true, // Enable encryption
     options: {
-      trustServerCertificate: true // Use only for development/testing purposes, remove in production
+      trustServerCertificate: true, // Use only for development/testing purposes, remove in production
+      requestTimeout: 90000
     }
 };
 const storage = multer.memoryStorage();
@@ -64,17 +65,9 @@ app.post("/pluInsert", uploadImages, async (req,res)=> {
         // PAUSE const imagePath = path.join(uploadDir, imageFileName);
         const imagePath = `uploads/${imageFileName}`;
         const grabImagePath = `${req.protocol}://${req.hostname}:${req.app.get('port')}/uploads/${imageFileName}`;
-        //write the file to the disk
-        await fs.writeFile(imagePath, binaryData, (err) => {
-            if (err) {
-                console.error(err);
-                // handle error
-            } else {
-                
-                console.log(`File written successfully to ${imagePath}`);
-                // continue with your logic after file is written successfully
-            }
-        });
+
+
+
         const values = [
             image.department,
             image.name,
@@ -96,6 +89,8 @@ app.post("/pluInsert", uploadImages, async (req,res)=> {
                 const transaction = new sql.Transaction();
                 transaction.begin()
                     .then(()=> {
+
+                        
                     //Check if PLU or name already exists
                         return request.query('SELECT COUNT(*) AS count FROM [Plu-Items] WHERE [Plu] = @plu or [Name] = @name;');
                     })
@@ -113,6 +108,14 @@ app.post("/pluInsert", uploadImages, async (req,res)=> {
                                     reject(error);
                                 })
                         } else {
+                            fs.writeFile(imagePath, binaryData, (err) => {
+                                if (err) {
+                                    console.error(err);
+                                    // handle error
+                                } else {
+                                    console.log(`File written successfully to ${imagePath}`);  
+                                }
+                            });
                             //insert the line into the database
                             return request.query(insertQuery);
                         }
@@ -233,90 +236,6 @@ app.post("/deleteALL", async (req,res)=> {
     })
     res.status(200).send({message: "all items deleted from server"})
 })
-/*************Retrieve queries for user experience ****/
-app.post("/pluListRetrieve", async (req, res) =>{
-    const depChoice = await req.body.department;
-
-    try {
-        await sql.connect(config);
-        const response = await sql.query(`SELECT * FROM [Plu-Items] WHERE [Department] = '${depChoice}' ORDER BY [Plu] ASC`)
-        const results = response.recordset
-        
-
-        if(results.length > 0) {
-            res.status(200).send((await response).recordset);
-        } else {
-            res.status(500).send({body: "No Plu's found. Please refresh or contact the administrator."})
-        }
-
-    } catch (error) {
-        console.log(error);
-        console.log("failed")
-        res.status(500).send("Error retrieving data from the database.");
-    }
-    // const retrieveQuery = `SELECT * FROM PLU_Practice_Hub.PLU_ITEMS WHERE Department = (?)`;
-    // pool.query(retrieveQuery, depChoice, (error, results, fields) =>{
-    //     if(error) {
-    //         console.log(error)
-    //         console.log("failed")
-    //         res.status(500).send("Error retrieving data from the database.");
-    //     } else {
-    //         res.status(200).json(results)
-    //     }
-    // })
-})
-app.post("/pluListRetrieveAll", async (req, res) =>{
-    const depChoice = await req.body.department;
-
-    try {
-        await sql.connect(config);
-        const response = await sql.query(`SELECT * FROM [Plu-Items] ORDER BY [Plu] ASC`)
-        const results = response.recordset
-        
-
-        if(results.length > 0) {
-            res.status(200).send((await response).recordset);
-        } else {
-            res.status(500).send({body: "No Plu's found. Please refresh or contact the administrator."})
-        }
-
-    } catch (error) {
-        console.log(error);
-        console.log("failed")
-        res.status(500).send("Error retrieving data from the database.");
-    }
-    // const retrieveQuery = `SELECT * FROM PLU_Practice_Hub.PLU_ITEMS WHERE Department = (?)`;
-    // pool.query(retrieveQuery, depChoice, (error, results, fields) =>{
-    //     if(error) {
-    //         console.log(error)
-    //         console.log("failed")
-    //         res.status(500).send("Error retrieving data from the database.");
-    //     } else {
-    //         res.status(200).json(results)
-    //     }
-    // })
-})
-//***************Login Work **************************/    
-app.post("/login", async (req, res) => {
-    try {
-        //query the db for an admin login
-        const {storeNo} = req.body;
-        console.log(storeNo)
-        const date = new Date().toISOString().slice(0, 10);
-        const insertQuery = "INSERT INTO [User-Visits] (store_number, date) VALUES (@store_number,@date)";
-        console.log(date)
-        const connection =  await sql.connect(config);
-        const request = new sql.Request()
-        request.input('store_number', sql.VarChar, storeNo);
-        request.input('date', sql.Date, date);
-        await request.query(insertQuery);
-
-        res.status(200).send({message: "Store number logged to database successfully."})
-    } catch(error) {
-        console.log(error);
-        res.status(500).send("Error inserting store number into the database.")
-    };
-});
 
 app.post("/adminlogin", async (req, res) => {
     const {username,password} = req.body;
@@ -377,7 +296,8 @@ app.post("/register", async (req, res) => {
 // declares port and starts listening on that port.   
 const ip = "192.168.1.81";
 const ipLive ="209.141.50.150"
-app.listen(PORT, ipLive, ()=> {
+app.listen(PORT, ()=> {
     console.log("data post is running app running", PORT)
 });
+
 

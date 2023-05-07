@@ -9,7 +9,6 @@ function PopUp(props,setPopUp,setValidation,clearDatabaseHandler) {
             <button type='button' className='inputLogin'onClick={()=> props.setPopUp(false)}>Cancel</button>
             <button type="button" className='inputLogin erase'onClick={()=> {props.clearDatabaseHandler();props.setPopUp(false);}}>ERASE</button>
         </div>
-
     </div>
   )
 }

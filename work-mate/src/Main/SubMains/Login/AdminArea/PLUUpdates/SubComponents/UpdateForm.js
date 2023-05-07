@@ -5,6 +5,7 @@ function UpdateForm() {
     const [images, setImages] = useState([]);
     const [serverMessage, setServerMessage] = useState();
     const ip =useContext(UserContext);
+    const [loading,setLoading] = useState(false);
     //handles the name change in the form
     const handleImageChange = (event) => {
         const uploadedImages = Array.from(event.target.files);
@@ -72,6 +73,7 @@ function UpdateForm() {
 
     // }
     const handleSubmit = async (event)=> {
+        setLoading(true);
         event.preventDefault();
         //input validation to check every field is correct and populated with data.
         const inputValidation = images.every((image) => {
@@ -102,6 +104,8 @@ function UpdateForm() {
                 const data = await response.json()
                 console.log(data.data)
                 setServerMessage(data.data)
+                setLoading(false)
+                setImages([])
             } catch (error) {
                 console.log(error);
                 //alert the user there was an error connecting to the server.
@@ -130,7 +134,8 @@ function UpdateForm() {
                     </div>
                 ))};
             </div>
-            <button type="submit" className='uploadButton'>Upload</button>      
+            {loading? <p>Please wait...</p>: null}
+            {!loading? <button type="submit" className='uploadButton'>Upload</button>: null}      
         </form>
     </div>
   )

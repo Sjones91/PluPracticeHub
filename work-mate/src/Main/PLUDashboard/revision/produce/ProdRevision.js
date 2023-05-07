@@ -8,7 +8,7 @@ function ProdRevision(props, setActivityState) {
   const ip =useContext(UserContext);
   const grabPlus = async () => {
       try {
-        const response = await fetch(`${ip[5]}${ip[4]}:3001/pluListRetrieve`, {
+        const response = await fetch(`${ip[5]}${ip[4]}:3002/pluListRetrieve`, {
           method: 'POST',
           headers: {
           'Content-Type': 'application/json'
@@ -27,7 +27,7 @@ function ProdRevision(props, setActivityState) {
   },[]);
   
   return (
-    <div className='d-f-col'>
+    <div className='d-f-col pluListSection'>
       <TiArrowLeftThick onClick={()=> props.setActivityState(0)} className="backIcon"/>
       <div className='pluList'>
       {producePlus.length > 0 ? 

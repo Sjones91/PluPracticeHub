@@ -21,10 +21,10 @@ function LoginForm(props, setUser) {
   const submitHandler = async (event)=> {
     event.preventDefault();
     console.log(ip[5])
-    if (storeNumber.length>0) {
+    if (storeNumber.length>0 && storeNumber.length< 4 && storeNumber*0 == 0) {
       
       try {
-        const response = await fetch(`${ip[5]}${ip[4]}:3001/login`,{
+        const response = await fetch(`${ip[5]}${ip[4]}:3002/login`,{
             method: "POST",
             headers: {
               "Content-Type": "application/json"
@@ -39,6 +39,8 @@ function LoginForm(props, setUser) {
       } catch(error) {
           console.log(error)
         }
+    } else {
+      alert("Please enter 3 digit store number.")
     }
   }
 

@@ -55,12 +55,16 @@
 }
 .pluList {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     grid-gap: 10px;
     width: 85%;
+    max-width: 100VW;
     margin: 0 auto;
     flex-wrap: wrap;
     
+}
+.pluListSection{
+    max-width: 100%;
 }
 .loading {
     text-align: center;
@@ -141,6 +145,7 @@
     font-weight: 600;
 }
 .testButton {
+    text-decoration: none;
     background-color: rgb(19, 52, 83);
     color: white;
     border: none;
@@ -184,6 +189,14 @@
     margin: auto;
     font-size: 3rem;
     font-weight: 600;
+}
+
+@media screen and (min-width: 300px) {
+    .pluList {
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 10px;
+        width: 100%
+    } 
 }
 
 @media screen and (min-width: 600px) {

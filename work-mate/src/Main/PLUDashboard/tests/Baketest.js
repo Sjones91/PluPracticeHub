@@ -8,7 +8,7 @@ export default function Baketest(props, setActivityState) {
   const ip =useContext(UserContext);
   const grabPlus = async () => {
     try {
-      const response = await fetch(`${ip[5]}${ip[4]}:3001/pluListRetrieve`, {
+      const response = await fetch(`${ip[5]}${ip[4]}:3002/pluListRetrieve`, {
         method: 'POST',
         headers: {
         'Content-Type': 'application/json'
