@@ -7,7 +7,7 @@ const fs = require("fs");
 const upload = multer();
 const path = require("path");
 const bcrypt = require('bcryptjs');
-const PORT = 3002;
+const PORT = 3333;
 
 app.set("port", PORT);
 
