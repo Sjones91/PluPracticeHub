@@ -10,11 +10,12 @@ function App() {
   //global use states.
   const [ActiveContent,SetActiveContent] = useState(true);
   const [user, setUser] = useState(false);
+  const [storeNum,setStoreNum] = useState("");
   const [adminValid,setAdminValid] = useState(true);
-  const [ip,setIp] =useState("209.141.50.150"); //server = 209.141.50.150
-  const [protocol, setProtocol] = useState("http://")
+  const [ip,setIp] =useState("localhost"); //server = 209.141.50.150
+  const [protocol, setProtocol] = useState("http://");
   return (
-    <UserContext.Provider value={[user, setUser, adminValid, setAdminValid, ip, protocol]}>
+    <UserContext.Provider value={[user, setUser, adminValid, setAdminValid, ip, protocol, setStoreNum, storeNum]}>
       <div className="appWide">
         <Header/>
         <NavBar ActiveContent={ActiveContent} SetActiveContent={SetActiveContent}/>

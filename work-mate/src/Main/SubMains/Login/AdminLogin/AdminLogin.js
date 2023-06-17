@@ -7,22 +7,22 @@ import Register from "../AdminLogin/Register.js";
 function AdminLogin() {
   const [admin,setAdmin] = useState(false)
   const [adminLogInState,setAdminLoginState] = useState(1)
-  
-  console.log(admin)
+  const [user,setUser] =useState("");
+  const [level,setLevel] = useState(0)
   return (
     <div>
       {(()=> {
         switch(admin) {
           case true:
-            return <AdminHome setAdmin = {setAdmin} />
+            return <AdminHome setAdmin = {setAdmin} user={user} level={level}/>
           case false:
               switch(adminLogInState){
                 case true:
-                  return <AdminLoginForm setAdminLoginState={setAdminLoginState} setAdmin = {setAdmin} />
+                  return <AdminLoginForm setAdminLoginState={setAdminLoginState} setAdmin={setAdmin} setUser={setUser} setLevel={setLevel}/>
                 case false:
                   return <Register setAdminLoginState={setAdminLoginState}/>
                 default:
-                  return <AdminLoginForm setAdminLoginState={setAdminLoginState} setAdmin = {setAdmin} />
+                  return <AdminLoginForm setAdminLoginState={setAdminLoginState} setAdmin = {setAdmin} setUser={setUser} setLevel={setLevel} />
               }
         }
       })()}

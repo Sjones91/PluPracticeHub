@@ -6,6 +6,8 @@ import BakeRevision from "./revision/bakery/BakeRevision.js"
 import BakeTest from "./tests/Baketest.js"
 import { useState, useContext } from 'react'
 import { UserContext } from '../../App.js';
+import ProduceFlash from './revision/produce/ProduceFlash.js';
+import BakeryFlash from "./revision/bakery/BakeryFlash.js"
 function PluHome() {
   const [activityState,setActivityState] = useState(0);
   const [user,setUser] = useContext(UserContext);
@@ -22,7 +24,11 @@ function PluHome() {
         case 3:
           return <BakeRevision setActivityState={setActivityState}/>
         case 4:
-          return <BakeTest setActivityState={setActivityState}/>       
+          return <BakeTest setActivityState={setActivityState}/>
+        case 5:
+          return <ProduceFlash setActivityState={setActivityState}/>
+        case 6:
+          return <BakeryFlash setActivityState={setActivityState}/>         
         default:
           return <Menu setActivityState={setActivityState}/>
 

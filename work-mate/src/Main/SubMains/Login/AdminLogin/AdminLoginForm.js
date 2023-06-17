@@ -3,11 +3,12 @@ import "../../subStyles.css"
 import { useState, useEffect,useContext } from 'react'
 import { UserContext } from '../../../../App';
 
-function AdminLoginForm(props, setFormChoice,setAdminLoginState, setAdmin) {
+function AdminLoginForm(props, setFormChoice,setAdminLoginState, setAdmin, setUser,setLevel) {
   //use states to handle Username and password input. 
   const [Username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [validUsername, SetValidUsername] = useState(false);
+  const [loading, setLoading] = useState(false)
   const ip =useContext(UserContext);
   useEffect(() => {
     if(Username !== "") {
@@ -27,6 +28,7 @@ function AdminLoginForm(props, setFormChoice,setAdminLoginState, setAdmin) {
     event.preventDefault();
     if (validUsername) {
       if(password.length > 8) {
+        setLoading(true)
         //try statement to set up method and post the data to the backend app.
           try {
           const response = await fetch(`${ip[5]}${ip[4]}:3001/adminLogin`, {
@@ -42,14 +44,17 @@ function AdminLoginForm(props, setFormChoice,setAdminLoginState, setAdmin) {
           //awaiting response from the server.
           const data = await response.json();
           if(response.status === 200) {
-            console.log(data.message)
             props.setAdmin(true)
-            
+            props.setUser(data.user[0].Username)
+            props.setLevel(data.user[0].adminlevel)
+            setLoading(false)
           } else {
             alert("Username or Password do not match.")
+            setLoading(false)
           }
           } catch (error) {
           console.log(error);
+          setLoading(false)
           alert("Error connecting to the server. Please try again later")
           }
 
@@ -81,7 +86,9 @@ function AdminLoginForm(props, setFormChoice,setAdminLoginState, setAdmin) {
           <p>Password</p>
           <input type="password" placeholder="password" onChange={updatePassword}></input>
         </section>
-        <button type='submit' className='inputLogin' onClick={submitHandler}>Login</button>
+        {loading? 
+        <p>Please Wait...</p> : 
+        <button type='submit' className='inputLogin' onClick={submitHandler}>Login</button>}
       </form>
       <button type="button" className='inputRegister' onClick={()=>props.setAdminLoginState(false)}>Register Here</button>
     </div>

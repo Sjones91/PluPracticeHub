@@ -34,6 +34,9 @@
 .inputField p{
     padding-bottom: 5px;
 }
+.regionSelector {
+    margin: 10px auto;
+}
 .inputLogin {
     width: 85px;
     margin-top: 10px;

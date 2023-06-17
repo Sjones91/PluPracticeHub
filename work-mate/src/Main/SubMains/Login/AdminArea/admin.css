@@ -15,6 +15,22 @@
     width: 100%;
     flex-direction:column;
 }
+.appAdminTools {
+    font-size: 0.70rem;
+    text-align: center;
+    width: 50%;
+    max-width: 301px;
+    margin: auto;
+    font-weight: 800;
+    background-color: rgb(49, 144, 233);
+    padding: 5px;
+    border-radius: 5px;
+}
+.appAdminTools 
+.appAdminTools:hover {
+    opacity: 90%;
+    cursor: pointer;
+}
 .navButton {
     font-size: 0.70rem;
     text-align: center;
@@ -127,14 +143,11 @@
 }
 
 @media screen and (min-width: 600px) {
-    .navButtons {
-        flex-direction: row;
-    }
     .buttonBar {
         margin-left: 0;
     }
     .logout {
-        margin-right: 0;
+        margin-right: auto;
         padding-right: 20px;
     }
     .eachUpload {
@@ -147,6 +160,17 @@
     max-width: 80%;
 }
 /*****************************Dashboard Styles**************************/
+.underlineHalf {
+    background-color: rgb(12, 32, 51);
+    width:70%;
+    margin: auto;
+    height: 3px;
+}
+.subheaderP {
+    margin: 10px auto;
+    font-weight: 600;
+    text-align: center;
+}
 .dashbaord {
     color: rgb(12, 32, 51)
 };
@@ -154,29 +178,134 @@
     font-size: 2rem;
     text-align: center;
 }
+
+.infoTileColor {
+    color: white;
+    margin: 10px auto;
+    text-align: center;
+    font-size: 1.5rem;
+}
+.infoTileColorLast {
+    margin-bottom: 20px;
+}
 .dashboardTitle {
     font-size: 3rem;
     text-align: center;
     margin-top: 20px;
     font-weight: 600;
 }
-.timerLogo {
-    font-size: 3rem;
-    margin: 60px auto 0;
-    color: rgb(12, 32, 51);
-    text-align: center;
-
+.dashboardGrid{
+    display: grid;
+    grid-template-columns: 1fr;
+    margin: 10px auto;
+    width: 80%;
 }
-.comingSoon {
-    font-size: 2.5rem;
+.dashboardTile {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(49, 144, 233);
+    margin-top: 10px;
+    width: 80%;
+    margin: 20px auto;
+    border-radius: 5px;
+}
+.dashboardTile h1 {
+    color: white;
+    font-size: 3rem;
     text-align: center;
-    margin-top: 20px;
+    margin: 20px auto 20px;
     font-weight: 600;
 }
-.comingSoonP {
-    text-align: center;
-    color: rgb(12, 32, 51);
+.dashboardTile h2 {
+    text-decoration: underline;
     margin-top: 10px;
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-align: center;
+}
+.dashboardTile p {
+    font-size: 1.25rem;
+    line-height: 1.25rem;
+    text-align: center;
+    font-weight: bold;
+    padding: 0 10px 20px;
+    margin-top: auto;
+}
+.weeklyFiguresTable {
+    margin-top: 20px;
+}
+.dashboardList {
+    justify-content: space-between;
+    padding: 0;
+    margin: 2px auto;
+    width: 80%;
+    background-color: rgb(49, 144, 233);
+    border-radius: 5px;
+}
+.textForSmallScreen {
+    font-size: 0.75rem;
+}
+.listItem:last-of-type {
+    border-right: none;
+}
+.listItem {
+    width: 19%;
+    color: White;
+    font-weight: 600;
+    margin: 0 auto;
+    padding: 5px;
+    text-align: center;
+    border-right: solid 2px rgb(12, 32, 51);
+}
+.listItem:first-of-type {
+    width: 25%;
+}
+.loadingData {
+    color: rgb(49, 144, 233);
+    margin: 20px auto;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    animation: flash 1s infinite;
+}
+
+@keyframes flash {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.4;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+.positive {
+    color: rgb(0, 255, 0)
+}
+.negative { 
+    color: rgb(134, 0, 0);
+}
+.tableKey {
+    width: 80%;
+    margin: 20px auto;
+    border-radius: 5px;
+    background-color: rgb(49, 144, 233);
+
+}
+.tableKey h2 {
+    padding: 10px;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+.tableKey p {
+    line-height: 1.25rem;
+    color: white;
+    padding: 0 10px 0;
+}
+.tableKey p:last-of-type {
+    padding-bottom: 10px;
 }
 /******************************Update PLUS AREA *******************************/
 
@@ -308,6 +437,163 @@
 .updateTextData {
     margin: 0 auto 0 0
 }
+/**********************Run Reports CSS*******************************/
+.dropSelectorBar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width:80%;
+    margin: 10px auto;
+    color: rgb(12, 32, 51);
+    max-width: 500px;
+}
+
+.selectorType{
+    max-width: 30%;
+}
+.dropDown {
+    width: 50%;
+    max-width: 150px;
+    border-radius: 5%;
+    border: solid rgb(49, 144, 233) 1px;
+    margin-top: 5px;
+}
+.infoSection {
+    max-width: 80%;
+    margin: 0 auto 10px;
+    color: rgb(12, 32, 51);
+}
+.infoSection p {
+    padding-top: 4px;
+    font-size: 0.75rem;
+}
+.infoSection h1 {
+    font-weight: 600;
+    margin-right: 5px;
+}
+.tileH1 {
+    font-size: 2rem;
+}
+.reportHeader {
+    text-align: center;
+    font-size: 1.5rem;
+    color:rgb(12, 32, 51);
+    font-weight: 600;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+.reportSubHeader {
+    text-align: center;
+    font-size: 1rem;
+    color:rgb(12, 32, 51);
+    font-weight: 600;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+.reportHeaders {
+    justify-content: space-evenly;
+}
+.reportNavBar{
+    background-color: rgb(49, 144, 233);
+    color: white;
+    font-weight: 600;
+    justify-content: space-between;
+}
+.reportNavBar h1 {
+    text-align: center;
+    width: 50%;
+    padding: 5px;
+}
+.selectedh1 {
+    font-size: 1.25rem;
+    text-decoration: underline;
+    
+}
+.dateBox {
+    max-width: 40%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    background: white;
+    padding:5px;
+    border: solid 1px rgb(49, 144, 233);;
+}
+.dateSelect {
+    max-width: 70%;
+    margin-top: 5px;
+    
+    
+}
+.submitButton {
+    font-size: 0.70rem;
+    text-align: center;
+    margin: 5px 0;
+    font-weight: 800;
+    background-color: rgb(49, 144, 233);
+    padding: 5px;
+    border-radius: 5px;
+}
+.submitButton:hover {
+    opacity: 90%;
+    cursor: pointer;
+}
+.infoRowCardFail {
+    color: white;
+    background: brown;
+    width:80%;
+    max-width: 310px;
+    margin: 10px auto;
+    border: solid 2px rgb(12, 32, 51);
+    padding: 5px;
+    border-radius: 5px;
+}
+.infoRowCardPass {
+    color: white;
+    background: green;
+    width:80%;
+    max-width: 310px;
+    margin: 10px auto;
+    border: solid 2px rgb(12, 32, 51);
+    padding: 5px;
+    border-radius: 5px;
+}
+.infoRowCardPass p, .infoRowCardFail p {
+    margin-right: 3px;
+    padding: 5px 0;
+}
+.infoRowCardPass h1, .infoRowCardFail h1 {
+    font-size: 1.5rem;
+    padding: 5px 0;
+    text-align: center;
+    font-weight: 600;
+}
+.infoRowSection {
+    color: white;
+    border-bottom: solid 2px rgb(12, 32, 51);
+    width: 100%;
+    padding: 5px 0;
+    justify-content: space-between;
+}
+.infoCardSection {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+/*-------------------Media Queries------------*/
+@media screen and (min-width: 460px) {
+    .dashboardGrid{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin: 10px auto;
+        width: 80%;
+    }
+    .dashboardTile h1 {
+        font-size: 3rem;
+    }
+    .textForSmallScreen {
+        font-size: 1rem;
+    }
+
+}
 
 @media screen and (min-width: 600px) {
     .updateItem {
@@ -317,4 +603,72 @@
         margin-left: auto;
         margin-right: 0;
     }
+    .dropSelectorBar {
+        display: flex;
+        flex-direction: row;
+    }
+    .dropDown {
+        min-width: 150px;
+    }
+
+}
+@media screen and (min-width: 700px) {
+    .infoCardSection {
+        margin-right: auto;
+        justify-content: left;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .infoRowCardFail {
+        margin: 10px 10px;
+    }
+    
+    
+
+}
+@media screen and (min-width: 960px) {
+    .navButtons {
+        flex-direction: row;
+    }
+    .appAdminTools {
+        margin-left: auto;
+        margin-right: 0;
+    }
+    .logout {
+        margin-right: 20px;
+        margin-left: 0;
+    }
+    .dashboardGrid{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        margin: 10px auto;
+        width: 80%;
+    }
+    .dashboardTile h1 {
+        font-size: 3rem;
+    }
+    .weeklyFiguresSection {
+        width: 80%;
+        margin: 10px auto;
+        padding: none;
+        align-content: space-around;
+        display: flex;
+        flex-direction: row;
+    }
+    .tableKey {
+        max-width: 20%;
+        margin: 0 0 0 auto;
+    }
+    .weeklyFiguresTable {
+        min-width: 70%;
+        margin: auto auto auto 0;
+    }
+    .dashboardList {
+        min-width: 100%;
+    }
+    .dropSelectorBar {
+        margin-left: 20px;
+        align-items: flex-start;
+    }
+    
 }

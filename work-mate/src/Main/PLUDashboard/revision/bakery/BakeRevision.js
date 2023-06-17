@@ -6,6 +6,7 @@ import { UserContext } from "../../../../App";
 
 function BakeRevision(props, setActivityState) {
   const [bakeryPlus,setBakeryPlus] = useState([]);
+  const [loadedImages, setLoadedImages] = useState(0); // Track the number of loaded images
   const ip =useContext(UserContext);
   const grabPlus = async () => {
       try {
@@ -18,7 +19,6 @@ function BakeRevision(props, setActivityState) {
         })
         const serverResponse = await response.json();
         setBakeryPlus(serverResponse);
-        console.log(serverResponse)
       }catch(error) {
         console.log(error)
       }
@@ -26,6 +26,9 @@ function BakeRevision(props, setActivityState) {
   useEffect(()=>{
     grabPlus()
   },[]);
+  const handleImageLoad = () => {
+    setLoadedImages(prevCount => prevCount + 1);
+  };
   
   return (
     <div className='d-f-col'>
@@ -37,10 +40,16 @@ function BakeRevision(props, setActivityState) {
           const Plu = item.Plu
           const imageUrl = item.image;
           //Server\uploads
-          console.log(imageUrl)
           
           return(
-              <PluItems Name = {Name} Plu = {Plu} img ={imageUrl}/>
+              <PluItems
+              key= {index} 
+              Name={Name} 
+              Plu={Plu} 
+              img ={imageUrl}
+              onLoad={handleImageLoad} // Call the onLoad event handler
+              style={{ visibility: loadedImages > index ? 'visible' : 'hidden' }} // Hide the images until loaded
+              />
               
           ) 
             
