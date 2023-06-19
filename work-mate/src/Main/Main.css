@@ -2,3 +2,67 @@
     background-color: whitesmoke;
     min-height: 100%;
 }
+.d-f-col {
+    display: flex;
+    flex-direction: column;
+}
+.footer {
+    display: flex;
+    flex-direction: row;
+    color: white;
+    background: rgb(49, 144, 233);
+    margin-bottom: 0;
+}
+.footerList {
+    flex-direction: column;
+    display: flex;
+    justify-content: space-evenly;
+    width:100%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-left: 10px;
+}
+.footerList li {
+    font-size: 1rem;
+    padding-bottom: 5px;
+}
+.footer h1 {
+    font-weight: 600;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+.footerList li:hover {
+    opacity: 90%;
+    cursor: pointer;
+}
+.contactPage {
+    height: 86vh;
+    margin-bottom: auto;
+    
+}
+/***************** contact page styles ******************************/
+.contentBlock {
+    color: white;
+    margin: 20px auto auto 20px;
+    width:80%;
+    background: rgb(49, 144, 233);
+    padding: 20px;
+    border-radius: 5px;
+}
+.cheader{
+    font-size: 2rem;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+.paragraph {
+    margin-bottom: 10px;
+}
+.emailLink {
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: rgb(19, 52, 83);
+    
+}
+.passage {
+    margin-top: 10px;
+}

@@ -13,8 +13,6 @@ export default function Baketest(props, setActivityState) {
   const [testData,setTestData] = useState({
     region: "",
     storeNumber: "",
-    operatorNum: "",
-    name: "",
     department:"Bakery",
   }) 
   //functionallity variables.
@@ -44,11 +42,7 @@ export default function Baketest(props, setActivityState) {
   const submitTest = async () => {
     if(answeredCount === producePlus.length) {
       if((testData.region !== "" && testData.region*0 === 0) && 
-          (testData.storeNumber !== "" && testData.storeNumber*0 === 0) &&
-          (testData.operatorNum !== "" && testData.operatorNum*0 === 0) &&
-          (testData.name !== "")
-          ){
-            if(privacy === true) {
+          (testData.storeNumber !== "" && testData.storeNumber*0 === 0) ){
               setLoading(true);
               try {
                 const response = await fetch(`${ip[5]}${ip[4]}:3333/postAnswer`,{
@@ -69,9 +63,6 @@ export default function Baketest(props, setActivityState) {
               } catch(error) {
                   console.log(error)
               } 
-          } else {
-            alert("Please check the box to confirm with the privacy policy")
-          }
         } else {
           alert("Please Fully Complete The Test Form With Correct Data.")
         }
@@ -87,9 +78,9 @@ export default function Baketest(props, setActivityState) {
   };
   return (
     <div>
-      <section className='d-f-row'>
+      <section className='d-f-col'>
         <TiArrowLeftThick onClick={()=> props.setActivityState(0)} className="backIcon"/>
-        <h1 className="testHeader">Produce PLU Test</h1>
+        <h1 className="testHeader">Bakery PLU Test</h1>
       </section>
       <section className='d-f-col testSubmitForm'>
         <p className='testInfo'>Please complete the form below and submit your test.</p>
@@ -103,20 +94,6 @@ export default function Baketest(props, setActivityState) {
             <input className='dataInputs' type='text' value= {testData.storeNumber} onChange={(e)=> setTestData({ ...testData, storeNumber: e.target.value})}/>
           </section>
         </div>
-        <div className='d-f-row inputBlock'>
-          <section>
-            <p>Cashier Number</p>
-            <input className='dataInputs' type='text' value= {testData.operatorNum} onChange={(e)=> setTestData({ ...testData, operatorNum: e.target.value})}/>
-          </section>
-          <section>
-            <p>Name</p>
-            <input className='dataInputs' type='text' value= {testData.name} onChange={(e)=> setTestData({ ...testData, name: e.target.value})}/>
-          </section>
-        </div>
-        <section className='d-f-row inputBlock'>
-        <input type="checkbox" onChange={(event) => privacy = event.target.checked}></input>
-        <p>I have read and agree to the Privacy Policy and Terms of Service. </p>
-        </section>
         {loading ? 
         <p className='testInfo'>Please Wait...</p>: 
         <button className='testButton' onClick={()=> submitTest()}> Submit Test</button>}

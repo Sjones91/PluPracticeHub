@@ -7,6 +7,7 @@ const fs = require("fs");
 const upload = multer();
 const path = require("path");
 const bcrypt = require('bcryptjs');
+const https = require("https");
 const PORT = 3001;
 
 app.set("port", PORT);
@@ -53,8 +54,6 @@ app.post("/pluInsert", uploadImages, async (req,res)=> {
     //}
     const images = req.files;
     const imageData = req.body.imageGroup;
-    console.log(images)
-    console.log(imageData)
     //console.log(imageData)
     let insertQuery = "INSERT INTO [Plu-Items] ([Department], [Name], [Plu], [image], [imageSource]) VALUES (@department,@name,@plu,@image, @imageSource)";
     let skippedItems = 0;
@@ -366,7 +365,7 @@ app.post("/fetchAvailableStores", async (req, res) =>{
     const data = req.body;
     try {
         await sql.connect(config);
-        const response = await sql.query(`SELECT DISTINCT [store_number] FROM [User_Activity] WHERE [Region] = '${data.region}' `)
+        const response = await sql.query(`SELECT DISTINCT [store_number] FROM [User_Activity] WHERE [Region] = '${data.region}' ORDER BY [store_number] ASC`)
         const stores = response.recordset
         if(stores.length > 0) {
             res.status(200).send(stores);
@@ -555,8 +554,19 @@ app.post("/register", async (req, res) => {
 // declares port and starts listening on that port.   
 const ip = "192.168.1.81";
 const ipLive ="209.141.50.150"
-app.listen(PORT, ()=> {
-    console.log("data post is running app running", PORT)
-});
+// app.listen(PORT, ()=> {
+//     console.log("data post is running app running", PORT)
+// });
 
-
+// Create an HTTPS server
+const options = {
+    key: fs.readFileSync("./private.key"), // Replace with your private key file path
+    cert: fs.readFileSync(".//certificate.crt"), // Replace with your certificate file path
+  };
+  
+  const server = https.createServer(options, app);
+  
+  // Start the server
+  server.listen(PORT,ipLive, () => {
+    console.log(`Https Server running on port ${PORT}`);
+  });

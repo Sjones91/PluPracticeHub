@@ -106,8 +106,6 @@ app.post("/postAnswer", async (req, res) => {
     console.log(data)
     console.log(data.testData.region)
     console.log(data.testData.storeNumber)
-    console.log(data.testData.operatorNum)
-    console.log(data.testData.name)
     const percentage = Math.ceil(data.percentage);
     let storeNumber;
     //assess and change store number value based on 1-3 digits. can accept 101 but not 1 or 10. must be 001 or 010
@@ -123,13 +121,11 @@ app.post("/postAnswer", async (req, res) => {
     try {
         //query the db for an admin login
         const date = new Date().toISOString().slice(0, 10);
-        const insertQuery = "INSERT INTO [Test-Results-Data] (region,storeNumber,operatorNum,name,department,testSize,scoreCorrect,percentage,date) VALUES (@region,@storeNumber,@operatorNum,@name,@department,@testSize,@scoreCorrect,@percentage, @date)";
+        const insertQuery = "INSERT INTO [Test-Results-Data] (region,storeNumber,department,testSize,scoreCorrect,percentage,date) VALUES (@region,@storeNumber,@department,@testSize,@scoreCorrect,@percentage, @date)";
         const connection =  await sql.connect(config);
         const request = new sql.Request()
         request.input('region', sql.Int, data.testData.region);
         request.input('storeNumber', sql.Int, storeNumber);
-        request.input('operatorNum', sql.Int, data.testData.operatorNum);
-        request.input('name', sql.VarChar, data.testData.name);
         request.input('department', sql.VarChar, data.testData.department);
         request.input('testSize', sql.Int, data.answeredCount);
         request.input('scoreCorrect', sql.Int, data.scoreCorrect);
@@ -164,7 +160,7 @@ app.post("/login", async (req, res) => {
         const connection =  await sql.connect(config);
         const request = new sql.Request()
         request.input('region', sql.Int, regionNum);
-        request.input('store_number', sql.VarChar, storeNumber);
+        request.input('store_number', sql.Int, storeNumber);
         request.input('date', sql.Date, date);
         await request.query(insertQuery);
 
