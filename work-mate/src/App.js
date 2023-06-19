@@ -25,6 +25,7 @@ function App() {
     case 1:
       content = <Contact setMainContent = {setMainContent}/>;
       break;
+      
     default:
       content = (
         <UserContext.Provider value={[user, setUser, adminValid, setAdminValid, ip, protocol, setStoreNum, storeNum]}>
