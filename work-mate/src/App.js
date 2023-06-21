@@ -17,7 +17,7 @@ function App() {
   const [storeNum,setStoreNum] = useState("");
   const [adminValid,setAdminValid] = useState(true);
   const [ip,setIp] =useState("209.141.50.150"); //server = 209.141.50.150
-  const [protocol, setProtocol] = useState("https://");
+  const [protocol, setProtocol] = useState("http://");
   //page switch status for main, contact and privacy policy.
   const [mainContent,setMainContent] = useState(0);
   let content;
