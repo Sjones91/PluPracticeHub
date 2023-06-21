@@ -558,15 +558,21 @@ const ipLive ="209.141.50.150"
 //     console.log("data post is running app running", PORT)
 // });
 
-// Create an HTTPS server
-const options = {
-    key: fs.readFileSync("./private.key"), // Replace with your private key file path
-    cert: fs.readFileSync(".//certificate.crt"), // Replace with your certificate file path
-  };
-  
-  const server = https.createServer(options, app);
-  
-  // Start the server
-  server.listen(PORT,ipLive, () => {
-    console.log(`Https Server running on port ${PORT}`);
-  });
+// Configure SSL certificate and private key paths
+const privateKeyPath = 'certificates/private.key';
+const certificatePath = 'certificates/certificate.crt';
+
+// Read the SSL certificate and private key files
+const privateKey = fs.readFileSync(privateKeyPath, 'utf8');
+const certificate = fs.readFileSync(certificatePath, 'utf8');
+
+// Create the HTTPS server with SSL options
+const server = https.createServer({
+  key: privateKey,
+  cert: certificate
+}, app);
+
+// Start the HTTPS server
+server.listen(PORT, () => {
+  console.log("HTTPS server is running on port", PORT);
+});
