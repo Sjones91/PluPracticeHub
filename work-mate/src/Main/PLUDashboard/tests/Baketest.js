@@ -9,12 +9,28 @@ export default function Baketest(props, setActivityState) {
   //variables used to store data for testing. answerCount == total number of items and score = amount of correct answers
   const [answeredCount,setAnsweredCount] = useState(0)
   const [scoreCounter,setScoreCounter] = useState(0);
+  const [region,setRegion] = useState([])
+  const [regionChoice,setRegionChoice] =useState("")
   let percentageCorrect = scoreCounter/answeredCount * 100;
   const [testData,setTestData] = useState({
     region: "",
     storeNumber: "",
     department:"Bakery",
   }) 
+
+  const fetchRegions = async ()=> {
+    const response = await fetch(`${ip[5]}${ip[4]}:3333/grabRegions`,{
+      method: "POST",
+      headers: {
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify({
+      })
+      })
+      const data = await response.json()
+      console.log(data)
+      setRegion(data)
+  }
   //functionallity variables.
   const [loading,setLoading] = useState(false)
   const [producePlus,setProducePlus] = useState([]);
@@ -41,8 +57,8 @@ export default function Baketest(props, setActivityState) {
 
   const submitTest = async () => {
     if(answeredCount === producePlus.length) {
-      if((testData.region !== "" && testData.region*0 === 0) && 
-          (testData.storeNumber !== "" && testData.storeNumber*0 === 0) ){
+      if(regionChoice !== "" && 
+      (testData.storeNumber !== "" && testData.storeNumber*0 === 0 && testData.storeNumber< 160)){
               setLoading(true);
               try {
                 const response = await fetch(`${ip[5]}${ip[4]}:3333/postAnswer`,{
@@ -51,7 +67,9 @@ export default function Baketest(props, setActivityState) {
                       "Content-Type": "application/json"
                     },
                     body:JSON.stringify({
-                      testData: testData,
+                      region:regionChoice,
+                      department: "Bakery",
+                      store: testData.storeNumber,
                       answeredCount:answeredCount,
                       scoreCorrect: scoreCounter,
                       percentage:percentageCorrect
@@ -72,6 +90,7 @@ export default function Baketest(props, setActivityState) {
   }
   useEffect(()=>{
     grabPlus()
+    fetchRegions()
   },[]);
   const handleImageLoad = () => {
     setLoadedImages(prevCount => prevCount + 1);
@@ -85,9 +104,23 @@ export default function Baketest(props, setActivityState) {
       <section className='d-f-col testSubmitForm'>
         <p className='testInfo'>Please complete the form below and submit your test.</p>
         <div className='d-f-row inputBlock'>
-          <section>
+        <section>
             <p>Region</p>
-            <input className='dataInputs' type='text' value= {testData.region} onChange={(e)=> setTestData({ ...testData, region: e.target.value})}/>
+            {region.length > 0 ? 
+              <select className= "regionSelector" value = {testData.region} onChange={(e) => {
+                const firstThreeDigits = e.target.value.substring(0, 3);
+                setRegionChoice(firstThreeDigits)
+                setTestData({ ...testData.region, region: e.target.value });
+              }}>
+              <option></option>
+              {region.map((area)=> {
+                return (
+                  <option key={area.region}>{`${area.region} - ${area.Name}`}</option>
+                )
+              })}
+              </select>
+              : <p>Loading Regions...</p>}
+            {/* <input className='dataInputs' type='text' value= {testData.region} onChange={(e)=> setTestData({ ...testData, region: e.target.value})}/> */}
           </section>
           <section>
             <p>Store Number</p>

@@ -263,7 +263,11 @@
 .inputBlock {
     margin: auto;
 }
-
+.regionSelector {
+    margin-top: 0;
+    height:1.3rem;
+    margin-right: 5px;
+}
 
 
 .dataInputs {

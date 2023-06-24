@@ -554,25 +554,25 @@ app.post("/register", async (req, res) => {
 // declares port and starts listening on that port.   
 const ip = "192.168.1.81";
 const ipLive ="209.141.50.150"
-app.listen(PORT, ()=> {
-    console.log("data post is running app running", PORT)
-});
-
-// // Configure SSL certificate and private key paths
-// const privateKeyPath = 'certificates/private.key';
-// const certificatePath = 'certificates/certificate.crt';
-
-// // Read the SSL certificate and private key files
-// const privateKey = fs.readFileSync(privateKeyPath, 'utf8');
-// const certificate = fs.readFileSync(certificatePath, 'utf8');
-
-// // Create the HTTPS server with SSL options
-// const server = https.createServer({
-//   key: privateKey,
-//   cert: certificate
-// }, app);
-
-// // Start the HTTPS server
-// server.listen(PORT, () => {
-//   console.log("HTTPS server is running on port", PORT);
+// app.listen(PORT, ()=> {
+//     console.log("data post is running app running", PORT)
 // });
+
+// Configure SSL certificate and private key paths
+const privateKeyPath = 'certificates/private.key';
+const certificatePath = 'certificates/certificate.crt';
+
+// Read the SSL certificate and private key files
+const privateKey = fs.readFileSync(privateKeyPath, 'utf8');
+const certificate = fs.readFileSync(certificatePath, 'utf8');
+
+// Create the HTTPS server with SSL options
+const server = https.createServer({
+  key: privateKey,
+  cert: certificate
+}, app);
+
+// Start the HTTPS server
+server.listen(PORT, () => {
+  console.log("HTTPS server is running on port", PORT);
+});

@@ -105,17 +105,15 @@ app.post("/postAnswer", async (req, res) => {
     console.log("PostAnswer Route Taken")
     const data = req.body;
     console.log(data)
-    console.log(data.testData.region)
-    console.log(data.testData.storeNumber)
     const percentage = Math.ceil(data.percentage);
     let storeNumber;
     //assess and change store number value based on 1-3 digits. can accept 101 but not 1 or 10. must be 001 or 010
-    if(data.testData.storeNumber.length === 3) {
-        storeNumber = data.testData.storeNumber
-    }else if(data.testData.storeNumber.length === 2) {
-        storeNumber = `0${data.testData.storeNumber}`
-    } else if (data.testData.storeNumber.length === 1) {
-        storeNumber = `00${data.testData.storeNumber}`
+    if(data.store.length === 3) {
+        storeNumber = data.store
+    }else if(data.store.length === 2) {
+        storeNumber = `0${data.store}`
+    } else if (data.store.length === 1) {
+        storeNumber = `00${data.store}`
     } 
 
     // console.log(data.storeNumber,data.department,data.testSize,data.scoreCorrect)
@@ -125,9 +123,9 @@ app.post("/postAnswer", async (req, res) => {
         const insertQuery = "INSERT INTO [Test-Results-Data] (region,storeNumber,department,testSize,scoreCorrect,percentage,date) VALUES (@region,@storeNumber,@department,@testSize,@scoreCorrect,@percentage, @date)";
         const connection =  await sql.connect(config);
         const request = new sql.Request()
-        request.input('region', sql.Int, data.testData.region);
+        request.input('region', sql.Int, parseInt(data.region));
         request.input('storeNumber', sql.Int, storeNumber);
-        request.input('department', sql.VarChar, data.testData.department);
+        request.input('department', sql.VarChar, data.department);
         request.input('testSize', sql.Int, data.answeredCount);
         request.input('scoreCorrect', sql.Int, data.scoreCorrect);
         request.input('percentage', sql.Int, percentage);
@@ -193,25 +191,24 @@ app.post("/grabRegions", async (req, res) =>{
 
 const ip = "81.152.120.136";
 const ipLive ="209.141.50.150"
-app.listen(PORT, ()=> {
-    console.log("data post is running app running", PORT)
-});
-
-// // Configure SSL certificate and private key paths
-// const privateKeyPath = 'certificates/private.key';
-// const certificatePath = 'certificates/certificate.crt';
-
-// // Read the SSL certificate and private key files
-// const privateKey = fs.readFileSync(privateKeyPath, 'utf8');
-// const certificate = fs.readFileSync(certificatePath, 'utf8');
-
-// // Create the HTTPS server with SSL options
-// const server = https.createServer({
-//   key: privateKey,
-//   cert: certificate
-// }, app);
-
-// // Start the HTTPS server
-// server.listen(PORT, () => {
-//   console.log("HTTPS server is running on port", PORT);
+// app.listen(PORT, ()=> {
+//     console.log("data post is running app running", PORT)
 // });
+
+// Configure SSL certificate and private key paths
+const privateKeyPath = 'certificates/key.pem';
+const certificatePath = 'certificates/cert.pem';
+
+// Read the SSL certificate and private key files
+const privateKey = fs.readFileSync(privateKeyPath, 'utf8');
+const certificate = fs.readFileSync(certificatePath, 'utf8');
+// Create the HTTPS server with SSL options
+const server = https.createServer({
+  key: privateKey,
+  cert: certificate
+}, app);
+
+// Start the HTTPS server
+server.listen(PORT, () => {
+  console.log("HTTPS server is running on port", PORT);
+});
