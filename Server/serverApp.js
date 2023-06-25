@@ -559,8 +559,8 @@ const ipLive ="209.141.50.150"
 // });
 
 // Configure SSL certificate and private key paths
-const privateKeyPath = 'certificates/private.key';
-const certificatePath = 'certificates/certificate.crt';
+const privateKeyPath = 'C:/Certbot/live/plupracticehub.co.uk/privkey.pem';
+const certificatePath = 'C:/Certbot/live/plupracticehub.co.uk/fullchain.pem';
 
 // Read the SSL certificate and private key files
 const privateKey = fs.readFileSync(privateKeyPath, 'utf8');
